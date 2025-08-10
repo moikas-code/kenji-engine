@@ -1,0 +1,34 @@
+{
+  "name": "kenji-engine-pong-showcase",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Classic Pong game built with Kenji Engine - AI-assisted development example",
+  "main": "dist/main.js",
+  "scripts": {
+    "dev": "bun run --watch src/main.ts",
+    "build": "bun build src/main.ts --outdir dist --target browser --minify",
+    "start": "bun run build && bun ../serve-game.ts",
+    "serve": "bun ../serve-game.ts",
+    "deploy": "bun run build && echo 'Ready for itch.io deployment!'"
+  },
+  "dependencies": {
+    "@kenji-engine/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "typescript": "^5.0.0"
+  },
+  "keywords": [
+    "game",
+    "pong",
+    "kenji-engine",
+    "ai-assisted",
+    "mcp",
+    "kuuzuki",
+    "typescript",
+    "itch-io",
+    "example"
+  ],
+  "author": "Kenji Engine",
+  "license": "MIT"
+}

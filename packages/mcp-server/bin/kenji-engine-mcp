@@ -1,0 +1,29 @@
+#!/usr/bin/env bun
+
+/**
+ * Kenji Engine MCP Server - Global Launcher
+ * 
+ * This script starts the Kenji Engine MCP server that can be used by Kuuzuki
+ * from any directory or project.
+ */
+
+import { resolve } from "path";
+import { fileURLToPath } from "url";
+import { dirname, join } from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+// Import and start the MCP server
+const serverPath = resolve(__dirname, "../dist/server.js");
+
+try {
+  console.log("🎮 Starting Kenji Engine MCP Server...");
+  console.log(`📁 Server path: ${serverPath}`);
+  
+  // Import and run the server
+  await import(serverPath);
+} catch (error) {
+  console.error("❌ Failed to start Kenji MCP Server:", error);
+  process.exit(1);
+}

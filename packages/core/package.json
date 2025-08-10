@@ -1,0 +1,29 @@
+{
+  "name": "@kenji-engine/core",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "bun build src/index.ts --outdir dist --target node --sourcemap --minify && (tsc --emitDeclarationOnly --outDir dist || echo 'TypeScript declarations skipped due to errors')",
+    "dev": "bun build src/index.ts --outdir dist --target node --watch",
+    "types": "tsc --emitDeclarationOnly --outDir dist"
+  },
+  "dependencies": {
+    "three": "^0.160.0"
+  },
+  "devDependencies": {
+    "@types/three": "^0.160.0",
+    "typescript": "^5.0.0"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ]
+}

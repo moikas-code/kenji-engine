@@ -1,0 +1,22 @@
+{
+  "name": "@kenji-engine/pixel-art-generator",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "bun build src/index.ts --outdir dist --target node --sourcemap --minify && (tsc --emitDeclarationOnly --outDir dist || echo 'TypeScript declarations skipped due to errors')",
+    "dev": "bun build src/index.ts --outdir dist --target node --watch",
+    "types": "tsc --emitDeclarationOnly --outDir dist"
+  },
+  "dependencies": {
+    "@kenji-engine/core": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ]
+}

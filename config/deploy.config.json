@@ -1,0 +1,46 @@
+{
+  "projectRoot": ".",
+  "buildDir": "./dist",
+  "outputDir": "./dist/deploy",
+  "itch": {
+    "user": "your-username",
+    "game": "kuuzuki-breakout",
+    "channel": "web"
+  },
+  "metadata": {
+    "title": "Kuuzuki Breakout",
+    "author": "Kuuzuki Game Engine",
+    "version": "1.0.0",
+    "description": "A classic Breakout game built with the Kuuzuki Game Engine - featuring pixel-perfect graphics, responsive controls, and addictive arcade gameplay.",
+    "tags": ["html5", "arcade", "breakout", "kuuzuki-ge", "pixel-art", "retro"],
+    "genre": "Arcade",
+    "platforms": ["web"],
+    "minPlayers": 1,
+    "maxPlayers": 1,
+    "controls": [
+      "Left/Right Arrow Keys or A/D - Move paddle",
+      "Spacebar - Launch ball / Pause game",
+      "R - Restart game",
+      "Mouse - Navigate menus"
+    ],
+    "features": [
+      "Classic Breakout gameplay with modern polish",
+      "Multiple brick types with different point values",
+      "Progressive difficulty with increasing ball speed",
+      "Lives system with game over conditions",
+      "Score tracking and display",
+      "Pause and restart functionality",
+      "Pixel-perfect collision detection",
+      "Responsive paddle controls",
+      "Retro-style pixel art graphics",
+      "Web-based - no download required"
+    ]
+  },
+  "targets": [
+    {
+      "name": "web",
+      "platform": "web",
+      "channel": "web"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "name": "test-game",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Breakout game built with Kuuzuki Game Engine",
+  "main": "dist/main.js",
+  "scripts": {
+    "dev": "bun run src/main.ts",
+    "build": "kuuzuki-editor build",
+    "deploy": "kuuzuki-editor deploy",
+    "start": "bun run build && bun run dist/main.js"
+  },
+  "dependencies": {
+    "@kenji-ge/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "typescript": "^5.0.0"
+  },
+  "keywords": [
+    "game",
+    "breakout",
+    "kuuzuki",
+    "typescript"
+  ],
+  "author": "",
+  "license": "MIT"
+}

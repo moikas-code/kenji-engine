@@ -1,0 +1,44 @@
+{
+  "name": "@kenji-engine/tui-editor",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Terminal-based visual game editor for Kenji Game Engine using OpenTUI",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "kenji-engine-editor": "./src/simple-cli.ts"
+  },
+  "scripts": {
+    "build": "bun build src/index.ts --outdir dist --target node && bun build src/simple-cli.ts --outdir dist --target node",
+    "dev": "bun --watch src/simple-cli.ts",
+    "start": "bun src/simple-cli.ts",
+    "prepublish": "bun run build"
+  },
+  "dependencies": {
+    "@kenji-engine/core": "workspace:*",
+    "@kenji-engine/pixel-art-generator": "workspace:*",
+    "@opentui/core": "github:sst/opentui",
+    "@dimforge/rapier2d-simd-compat": "^0.17.3",
+    "planck": "^1.4.2",
+    "bun-webgpu": "0.1.0",
+    "jimp": "1.6.0",
+    "three": "0.177.0",
+    "chalk": "^5.3.0",
+    "commander": "^11.1.0",
+    "chokidar": "^3.5.3",
+    "yoga-layout": "^3.2.1"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "typescript": "^5.0.0"
+  },
+  "keywords": [
+    "game-engine",
+    "tui",
+    "terminal",
+    "editor",
+    "visual",
+    "opentui",
+    "kenji"
+  ]
+}

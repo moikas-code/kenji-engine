@@ -1,0 +1,11 @@
+[install]
+registry = "https://registry.npmjs.org/"
+scopes = {}
+
+[run]
+hot = true
+
+[build]
+target = "node"
+minify = true
+sourcemap = "external"

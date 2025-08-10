@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "kenji-game-engine": {
+      "command": [
+        "bun",
+        "run",
+        "packages/mcp-server/src/server.ts"
+      ],
+      "env": {
+        "NODE_ENV": "development"
+      }
+    }
+  }
+}

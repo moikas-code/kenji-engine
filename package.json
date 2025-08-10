@@ -1,0 +1,45 @@
+{
+  "name": "kenji-engine",
+  "version": "0.0.1",
+  "type": "module",
+  "private": true,
+  "bin": {
+    "kenji-engine": "./kenji-engine"
+  },
+  "workspaces": [
+    "packages/*",
+    "example"
+  ],
+  "scripts": {
+    "build": "bun run scripts/build-production.ts",
+    "build:packages": "bun run --filter='@kenji-engine/*' build",
+    "build:web": "bun run scripts/build-production.ts && echo 'Web build ready at dist/web/'",
+    "build:itch": "bun run scripts/build-production.ts && echo 'Itch.io build ready at dist/itch/'",
+    "build:test": "bun run scripts/build-test.ts",
+    "build:verify": "bun run build && bun run build:test",
+    "dev": "bun run --filter='@kenji-engine/*' dev",
+    "dev:web": "cd example && bun --watch main.ts",
+    "test": "bun test",
+    "test:coverage": "bun test --coverage",
+    "clean": "rm -rf packages/*/dist/ dist/",
+    "clean:all": "bun run clean && rm -rf node_modules packages/*/node_modules",
+    "mcp": "bun run packages/mcp-server/src/server.ts",
+    "publish": "bun run build:verify && changeset publish",
+    "typecheck": "tsc --noEmit",
+    "lint": "echo 'No linter configured - use moidvk tools'",
+    "format": "echo 'No formatter configured - use moidvk tools'",
+    "deploy:itch": "./scripts/deploy-itch.sh",
+    "deploy:setup": "./scripts/setup-butler.sh",
+    "deploy:dry-run": "./scripts/deploy-itch.sh --dry-run",
+    "deploy:cli": "bun run packages/butler-deploy/src/cli.ts",
+    "size-analysis": "bun run build && cat dist/BUILD_REPORT.md"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.27.1",
+    "@types/bun": "latest",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "latest"
+  }
+}

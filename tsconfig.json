@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "declaration": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
+    "paths": {
+      "@kuuzuki-ge/core": ["./packages/core/src"],
+      "@kuuzuki-ge/pixel-art-generator": ["./packages/pixel-art-generator/src"],
+      "@kuuzuki-ge/mcp-server": ["./packages/mcp-server/src"],
+      "@kuuzuki-ge/butler-deploy": ["./packages/butler-deploy/src"],
+      "@kuuzuki-ge/cli": ["./packages/cli/src"]
+    }
+  },
+  "include": ["packages/*/src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}

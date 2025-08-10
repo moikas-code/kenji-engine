@@ -1,0 +1,20 @@
+{
+  "name": "@kenji-engine/cli",
+  "version": "1.0.0",
+  "type": "module",
+  "bin": {
+    "kenji-engine": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "bun build src/index.ts --outdir dist --target node",
+    "dev": "bun --watch src/index.ts",
+    "prepublish": "bun run build"
+  },
+  "dependencies": {
+    "@kenji-engine/mcp-server": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "typescript": "^5.0.0"
+  }
+}

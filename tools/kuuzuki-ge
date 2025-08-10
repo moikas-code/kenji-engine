@@ -1,0 +1,31 @@
+#!/usr/bin/env bun
+
+// Main Kuuzuki Game Engine CLI entry point
+import { execSync } from 'child_process';
+import * as path from 'path';
+
+const args = process.argv.slice(2);
+
+// If no arguments, show the interactive TUI editor menu
+if (args.length === 0) {
+  try {
+    execSync('bun packages/tui-editor/src/cli.ts', { 
+      stdio: 'inherit',
+      cwd: __dirname 
+    });
+  } catch (error) {
+    console.error('Failed to start Kuuzuki Game Engine TUI Editor:', error);
+    process.exit(1);
+  }
+} else {
+  // Pass through to the TUI editor CLI
+  try {
+    execSync(`bun packages/tui-editor/src/cli.ts ${args.join(' ')}`, { 
+      stdio: 'inherit',
+      cwd: __dirname 
+    });
+  } catch (error) {
+    console.error('Command failed:', error);
+    process.exit(1);
+  }
+}

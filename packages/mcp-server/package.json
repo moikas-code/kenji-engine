@@ -1,0 +1,31 @@
+{
+  "name": "@kenji-engine/mcp-server",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "./dist/server.js",
+  "types": "./dist/server.d.ts",
+  "bin": {
+    "kenji-engine-mcp": "./bin/kenji-engine-mcp"
+  },
+  "scripts": {
+    "build": "bun build src/server.ts --outdir dist --target node --sourcemap && (tsc --emitDeclarationOnly --outDir dist || echo 'TypeScript declarations skipped due to errors')",
+    "dev": "bun --watch src/server.ts",
+    "start": "bun run src/server.ts",
+    "mcp": "bun run src/server.ts"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "latest",
+    "@kenji-engine/core": "workspace:*",
+    "@kenji-engine/pixel-art-generator": "workspace:*",
+    "@kenji-engine/butler-deploy": "workspace:*",
+    "zod": "^3.22.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "files": [
+    "dist",
+    "bin",
+    "README.md"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "name": "@kenji-engine/butler-deploy",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "kenji-engine-deploy": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "bun build src/index.ts --outdir dist --target node --sourcemap && bun build src/cli.ts --outdir dist --target node --sourcemap && (tsc --emitDeclarationOnly --outDir dist || echo 'TypeScript declarations skipped due to errors')",
+    "dev": "bun build src/index.ts --outdir dist --target node --watch"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "@types/node": "^20.0.0"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ]
+}
