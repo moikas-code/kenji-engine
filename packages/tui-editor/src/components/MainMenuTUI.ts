@@ -423,7 +423,7 @@ export class MainMenuTUI extends Renderable {
           );
           if (
             packageJson.dependencies &&
-            (packageJson.dependencies["@kuuzuki-ge/core"] ||
+            (packageJson.dependencies["@kenji-engine/core"] ||
               packageJson.name?.includes("kuuzuki"))
           ) {
             // This is a valid project

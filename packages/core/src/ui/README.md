@@ -210,7 +210,7 @@ import {
   UIInputSystem,
   GameScreenSystem,
   GameState,
-} from "@kuuzuki-ge/core";
+} from "@kenji-engine/core";
 
 // Initialize engine
 const engine = new GameEngine({ canvas, mode: "2d" });

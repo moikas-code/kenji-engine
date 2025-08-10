@@ -12,7 +12,7 @@
     "author": "Kuuzuki Game Engine",
     "version": "1.0.0",
     "description": "A classic Breakout game built with the Kuuzuki Game Engine - featuring pixel-perfect graphics, responsive controls, and addictive arcade gameplay.",
-    "tags": ["html5", "arcade", "breakout", "kuuzuki-ge", "pixel-art", "retro"],
+    "tags": ["html5", "arcade", "breakout", "kenji-engine", "pixel-art", "retro"],
     "genre": "Arcade",
     "platforms": ["web"],
     "minPlayers": 1,

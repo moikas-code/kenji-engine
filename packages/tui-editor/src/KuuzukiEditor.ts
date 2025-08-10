@@ -1,4 +1,4 @@
-import { GameEngine, Entity, World } from "@kuuzuki-ge/core";
+import { GameEngine, Entity, World } from "@kenji-engine/core";
 import { SimpleBreakoutGame } from "./SimpleBreakoutGame";
 import { SceneHierarchy } from "./components/SceneHierarchy";
 import { PropertyPanel } from "./components/PropertyPanel";

@@ -309,7 +309,7 @@ butler status your-user/your-game:web
 ### Custom Build Pipeline
 
 ```typescript
-import { DeploymentPipeline } from "@kuuzuki-ge/butler-deploy";
+import { DeploymentPipeline } from "@kenji-engine/butler-deploy";
 
 const pipeline = new DeploymentPipeline({
   // ... config
@@ -325,7 +325,7 @@ const result = await pipeline.run({
 ### Programmatic Deployment
 
 ```typescript
-import { ButlerDeployer } from "@kuuzuki-ge/butler-deploy";
+import { ButlerDeployer } from "@kenji-engine/butler-deploy";
 
 const deployer = new ButlerDeployer({
   user: "your-user",

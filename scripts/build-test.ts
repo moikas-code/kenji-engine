@@ -51,11 +51,11 @@ async function testPackageImports() {
   console.log("\n📦 Testing package imports...");
 
   const packages = [
-    "@kuuzuki-ge/core",
-    "@kuuzuki-ge/pixel-art-generator",
-    "@kuuzuki-ge/mcp-server",
-    "@kuuzuki-ge/cli",
-    "@kuuzuki-ge/butler-deploy",
+    "@kenji-engine/core",
+    "@kenji-engine/pixel-art-generator",
+    "@kenji-engine/mcp-server",
+    "@kenji-engine/cli",
+    "@kenji-engine/butler-deploy",
   ];
 
   for (const packageName of packages) {
@@ -141,11 +141,11 @@ async function checkTypeScriptDeclarations() {
   console.log("\n📝 Checking TypeScript declarations...");
 
   const packagesWithTypes = [
-    "@kuuzuki-ge/core",
-    "@kuuzuki-ge/pixel-art-generator",
-    "@kuuzuki-ge/mcp-server",
-    "@kuuzuki-ge/cli",
-    "@kuuzuki-ge/butler-deploy",
+    "@kenji-engine/core",
+    "@kenji-engine/pixel-art-generator",
+    "@kenji-engine/mcp-server",
+    "@kenji-engine/cli",
+    "@kenji-engine/butler-deploy",
   ];
 
   for (const packageName of packagesWithTypes) {

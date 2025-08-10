@@ -185,7 +185,7 @@ program
       );
       console.log("");
       console.log(chalk.cyan("Or use the butler-deploy package:"));
-      console.log("bun add @kuuzuki-ge/butler-deploy");
+      console.log("bun add @kenji-engine/butler-deploy");
     } catch (error) {
       console.error(chalk.red("❌ Deployment error:"), error);
       process.exit(1);
@@ -287,7 +287,7 @@ function findGameProjects(dir: string): string[] {
             );
             if (
               packageJson.dependencies &&
-              (packageJson.dependencies["@kuuzuki-ge/core"] ||
+              (packageJson.dependencies["@kenji-engine/core"] ||
                 packageJson.name?.includes("kuuzuki"))
             ) {
               projects.push(projectPath);

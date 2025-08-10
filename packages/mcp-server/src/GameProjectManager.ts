@@ -50,8 +50,8 @@ export class GameProjectManager {
         start: "bun run src/main.ts",
       },
       dependencies: {
-        "@kuuzuki-ge/core": "latest",
-        "@kuuzuki-ge/pixel-art-generator": "latest",
+        "@kenji-engine/core": "latest",
+        "@kenji-engine/pixel-art-generator": "latest",
       },
       devDependencies: {
         "@types/bun": "latest",
@@ -94,7 +94,7 @@ export class GameProjectManager {
   }
 
   private generateEmptyTemplate(type: "2d" | "3d"): string {
-    return `import { GameEngine, Entity } from '@kuuzuki-ge/core';
+    return `import { GameEngine, Entity } from '@kenji-engine/core';
 
 async function main() {
   // Get canvas element
@@ -129,8 +129,8 @@ document.addEventListener('DOMContentLoaded', main);`;
   }
 
   private generatePongTemplate(type: "2d" | "3d"): string {
-    return `import { GameEngine, Entity, Transform2D, Velocity2D, Sprite2D } from '@kuuzuki-ge/core';
-import { PongAssetGenerator } from '@kuuzuki-ge/pixel-art-generator';
+    return `import { GameEngine, Entity, Transform2D, Velocity2D, Sprite2D } from '@kenji-engine/core';
+import { PongAssetGenerator } from '@kenji-engine/pixel-art-generator';
 
 async function main() {
   const canvas = document.getElementById('game-canvas') as HTMLCanvasElement;

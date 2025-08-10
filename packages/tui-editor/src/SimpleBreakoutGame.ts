@@ -5,7 +5,7 @@ import {
   Velocity2D,
   Sprite2D,
   Collider2D,
-} from "@kuuzuki-ge/core";
+} from "@kenji-engine/core";
 
 export class SimpleBreakoutGame {
   initialize(world: World): void {

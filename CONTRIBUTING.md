@@ -31,8 +31,8 @@ This project adheres to a code of conduct that promotes a welcoming and inclusiv
 1. Fork and clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/kuuzuki-ge.git
-   cd kuuzuki-ge
+   git clone https://github.com/your-username/kenji-engine.git
+   cd kenji-engine
    ```
 
 2. Install dependencies:
@@ -63,7 +63,7 @@ This project adheres to a code of conduct that promotes a welcoming and inclusiv
 This is a monorepo with the following structure:
 
 ```
-kuuzuki-ge/
+kenji-engine/
 ├── packages/
 │   ├── core/              # Core game engine
 │   ├── cli/               # Command line interface
@@ -273,7 +273,7 @@ We use [Changesets](https://github.com/changesets/changesets) for version manage
 
 ## Getting Help
 
-- Check existing [issues](https://github.com/kuuzuki-ge/kuuzuki-ge/issues)
+- Check existing [issues](https://github.com/kenji-engine/kenji-engine/issues)
 - Create a new issue for bugs or feature requests
 - Join our community discussions
 - Review the documentation in `/docs`

@@ -73,7 +73,7 @@ export class ManifestGenerator {
         "game",
         "html5",
         "canvas",
-        "kuuzuki-ge",
+        "kenji-engine",
         ...(metadata.tags || []),
       ],
       engines: {

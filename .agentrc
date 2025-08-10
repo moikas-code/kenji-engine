@@ -99,6 +99,22 @@
         },
         "documentationLinks": [],
         "tags": []
+      },
+      {
+        "id": "always-run-hallucinationdetector-agent-after-imple-me68nbrw",
+        "text": "Always run hallucination-detector agent after implementing complex technical solutions",
+        "category": "critical",
+        "reason": "Critical to verify accuracy of technical implementations and catch potential errors, inconsistencies, or false claims before they cause issues",
+        "createdAt": "2025-08-10T22:11:25.148Z",
+        "usageCount": 0,
+        "analytics": {
+          "timesApplied": 0,
+          "timesIgnored": 0,
+          "effectivenessScore": 0,
+          "userFeedback": []
+        },
+        "documentationLinks": [],
+        "tags": []
       }
     ],
     "preferred": [],
@@ -207,8 +223,8 @@
   },
   "ruleMetadata": {
     "version": "1.0.0",
-    "lastModified": "2025-08-03T23:34:17.690Z",
-    "totalRules": 2,
+    "lastModified": "2025-08-10T22:11:25.148Z",
+    "totalRules": 3,
     "sessionRules": [
       {
         "ruleId": "create-ui-system-for-kenji-game-engine-breakout--mdwb4mny",
@@ -219,6 +235,11 @@
         "ruleId": "set-up-automated-itchio-deployment-system-with-but-mdwbixy2",
         "learnedAt": "2025-08-03T23:34:17.690Z",
         "context": "Need complete deployment automation with butler, versioning, and proper itch.io integration"
+      },
+      {
+        "ruleId": "always-run-hallucinationdetector-agent-after-imple-me68nbrw",
+        "learnedAt": "2025-08-10T22:11:25.148Z",
+        "context": "Critical to verify accuracy of technical implementations and catch potential errors, inconsistencies, or false claims before they cause issues"
       }
     ]
   }

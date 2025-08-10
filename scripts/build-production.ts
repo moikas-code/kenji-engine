@@ -57,7 +57,7 @@ interface VerificationResult {
 
 const BUILD_CONFIGS: BuildConfig[] = [
   {
-    packageName: "@kuuzuki-ge/core",
+    packageName: "@kenji-engine/core",
     hasTypes: true,
     webBundle: true,
     minify: true,
@@ -65,7 +65,7 @@ const BUILD_CONFIGS: BuildConfig[] = [
     entryPoint: "src/index.ts",
   },
   {
-    packageName: "@kuuzuki-ge/pixel-art-generator",
+    packageName: "@kenji-engine/pixel-art-generator",
     hasTypes: true,
     webBundle: true,
     minify: true,
@@ -73,7 +73,7 @@ const BUILD_CONFIGS: BuildConfig[] = [
     entryPoint: "src/index.ts",
   },
   {
-    packageName: "@kuuzuki-ge/mcp-server",
+    packageName: "@kenji-engine/mcp-server",
     hasTypes: true,
     webBundle: false,
     minify: true,
@@ -81,7 +81,7 @@ const BUILD_CONFIGS: BuildConfig[] = [
     entryPoint: "src/server.ts",
   },
   {
-    packageName: "@kuuzuki-ge/cli",
+    packageName: "@kenji-engine/cli",
     hasTypes: true,
     webBundle: false,
     minify: true,
@@ -89,7 +89,7 @@ const BUILD_CONFIGS: BuildConfig[] = [
     entryPoint: "src/index.ts",
   },
   {
-    packageName: "@kuuzuki-ge/butler-deploy",
+    packageName: "@kenji-engine/butler-deploy",
     hasTypes: true,
     webBundle: false,
     minify: true,

@@ -6,7 +6,7 @@
 
 ## 🎯 What We've Built
 
-### **Complete TUI Editor Package** (`@kuuzuki-ge/tui-editor`)
+### **Complete TUI Editor Package** (`@kenji-engine/tui-editor`)
 
 I've created a comprehensive foundation for a terminal-based visual game editor that includes:
 
@@ -59,7 +59,7 @@ I've created a comprehensive foundation for a terminal-based visual game editor 
 
 ```bash
 # Install the TUI editor
-npm install -g @kuuzuki-ge/tui-editor
+npm install -g @kenji-engine/tui-editor
 
 # Create new project with editor support
 kuuzuki-editor create my-breakout-game -t breakout

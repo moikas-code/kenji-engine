@@ -2,7 +2,7 @@
 
 ## 🎯 Project Overview
 
-The Kuuzuki Game Engine (kuuzuki-ge) has been successfully implemented as a complete game engine MVP with the following core features:
+The Kuuzuki Game Engine (kenji-engine) has been successfully implemented as a complete game engine MVP with the following core features:
 
 - **Entity Component System (ECS)** architecture for flexible game development
 - **Built-in pixel art generation** system requiring zero external assets
@@ -71,7 +71,7 @@ The Kuuzuki Game Engine (kuuzuki-ge) has been successfully implemented as a comp
 ### 4. CLI Tools (`packages/cli/`)
 
 #### Command Line Interface
-- ✅ **kuuzuki-ge** CLI tool
+- ✅ **kenji-engine** CLI tool
 - ✅ Project creation with templates
 - ✅ Build and deployment commands
 - ✅ Help and version information
@@ -144,7 +144,7 @@ const paddle = await generator.generateSprite({
 ## 📁 Project Structure
 
 ```
-kuuzuki-ge/
+kenji-engine/
 ├── packages/
 │   ├── core/                    # ✅ ECS engine core
 │   ├── pixel-art-generator/     # ✅ Asset generation
@@ -162,7 +162,7 @@ kuuzuki-ge/
 
 ### Create a New Game
 ```bash
-kuuzuki-ge create my-pong-game --template pong
+kenji-engine create my-pong-game --template pong
 cd my-pong-game
 bun install
 bun run dev
@@ -178,8 +178,8 @@ kuuzuki  # Start AI assistant
 
 ### Manual Development
 ```typescript
-import { GameEngine, Entity, Transform2D, Sprite2D } from '@kuuzuki-ge/core';
-import { PixelArtGenerator } from '@kuuzuki-ge/pixel-art-generator';
+import { GameEngine, Entity, Transform2D, Sprite2D } from '@kenji-engine/core';
+import { PixelArtGenerator } from '@kenji-engine/pixel-art-generator';
 
 // Initialize engine
 const engine = new GameEngine({

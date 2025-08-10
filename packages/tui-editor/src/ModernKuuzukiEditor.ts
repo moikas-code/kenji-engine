@@ -1,4 +1,4 @@
-import { GameEngine, Entity, World } from "@kuuzuki-ge/core";
+import { GameEngine, Entity, World } from "@kenji-engine/core";
 import { OpenTUIRenderer } from "./OpenTUIRenderer";
 import { Panel } from "./Renderable";
 import { RGBA } from "./types";

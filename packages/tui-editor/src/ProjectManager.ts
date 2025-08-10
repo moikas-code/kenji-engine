@@ -111,7 +111,7 @@ export class ProjectManager {
           start: "bun run build && bun run dist/main.js",
         },
         dependencies: {
-          "@kuuzuki-ge/core": "^1.0.0",
+          "@kenji-engine/core": "^1.0.0",
         },
         devDependencies: {
           "@types/bun": "latest",
@@ -141,7 +141,7 @@ export class ProjectManager {
           start: "bun run build && bun run dist/main.js",
         },
         dependencies: {
-          "@kuuzuki-ge/core": "^1.0.0",
+          "@kenji-engine/core": "^1.0.0",
         },
         devDependencies: {
           "@types/bun": "latest",
@@ -171,7 +171,7 @@ export class ProjectManager {
           start: "bun run build && bun run dist/main.js",
         },
         dependencies: {
-          "@kuuzuki-ge/core": "^1.0.0",
+          "@kenji-engine/core": "^1.0.0",
         },
         devDependencies: {
           "@types/bun": "latest",
@@ -187,7 +187,7 @@ export class ProjectManager {
   }
 
   private getBreakoutMainTs(): string {
-    return `import { GameEngine } from "@kuuzuki-ge/core";
+    return `import { GameEngine } from "@kenji-engine/core";
 import { BreakoutGame } from "./game/BreakoutGame";
 
 async function main() {
@@ -216,7 +216,7 @@ main().catch(console.error);
   }
 
   private getPlatformerMainTs(): string {
-    return `import { GameEngine } from "@kuuzuki-ge/core";
+    return `import { GameEngine } from "@kenji-engine/core";
 import { PlatformerGame } from "./game/PlatformerGame";
 
 async function main() {
@@ -245,7 +245,7 @@ main().catch(console.error);
   }
 
   private getEmptyMainTs(): string {
-    return `import { GameEngine } from "@kuuzuki-ge/core";
+    return `import { GameEngine } from "@kenji-engine/core";
 
 async function main() {
   const canvas = document.getElementById("gameCanvas") as HTMLCanvasElement;
@@ -274,7 +274,7 @@ main().catch(console.error);
   }
 
   private getBreakoutGameTs(): string {
-    return `import { World, Entity, Transform2D, Velocity2D, Sprite2D, Collider2D } from "@kuuzuki-ge/core";
+    return `import { World, Entity, Transform2D, Velocity2D, Sprite2D, Collider2D } from "@kenji-engine/core";
 import { PaddleSystem } from "./systems/PaddleSystem";
 import { BallSystem } from "./systems/BallSystem";
 import { BrickSystem } from "./systems/BrickSystem";
@@ -334,7 +334,7 @@ export class BreakoutGame {
   }
 
   private getPlatformerGameTs(): string {
-    return `import { World, Entity, Transform2D, Velocity2D, Sprite2D, Collider2D } from "@kuuzuki-ge/core";
+    return `import { World, Entity, Transform2D, Velocity2D, Sprite2D, Collider2D } from "@kenji-engine/core";
 
 export class PlatformerGame {
   initialize(world: World): void {
@@ -382,7 +382,7 @@ export class PlatformerGame {
   }
 
   private getPaddleSystemTs(): string {
-    return `import { System, Entity, Transform2D, Velocity2D } from "@kuuzuki-ge/core";
+    return `import { System, Entity, Transform2D, Velocity2D } from "@kenji-engine/core";
 
 export class PaddleSystem extends System {
   priority = 10;
@@ -412,7 +412,7 @@ export class PaddleSystem extends System {
   }
 
   private getBallSystemTs(): string {
-    return `import { System, Entity, Transform2D, Velocity2D } from "@kuuzuki-ge/core";
+    return `import { System, Entity, Transform2D, Velocity2D } from "@kenji-engine/core";
 
 export class BallSystem extends System {
   priority = 20;
@@ -442,7 +442,7 @@ export class BallSystem extends System {
   }
 
   private getBrickSystemTs(): string {
-    return `import { System, Entity, Transform2D, Collider2D } from "@kuuzuki-ge/core";
+    return `import { System, Entity, Transform2D, Collider2D } from "@kenji-engine/core";
 
 export class BrickSystem extends System {
   priority = 30;
@@ -511,7 +511,7 @@ export class BrickSystem extends System {
   private getReadmeMd(): string {
     return `# {{PROJECT_NAME}}
 
-A game built with [Kuuzuki Game Engine](https://github.com/moikas-code/kuuzuki-ge).
+A game built with [Kuuzuki Game Engine](https://github.com/moikas-code/kenji-engine).
 
 ## Development
 
@@ -539,7 +539,7 @@ TODO: Add your game features here
 
 ## Built With
 
-- [Kuuzuki Game Engine](https://github.com/moikas-code/kuuzuki-ge) - Modern TypeScript game engine
+- [Kuuzuki Game Engine](https://github.com/moikas-code/kenji-engine) - Modern TypeScript game engine
 - [Bun](https://bun.sh) - Fast JavaScript runtime and package manager
 - TypeScript - Type-safe JavaScript
 

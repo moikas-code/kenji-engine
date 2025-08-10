@@ -31,7 +31,7 @@ export interface PackageBuildConfig {
 
 export const PACKAGE_CONFIGS: PackageBuildConfig[] = [
   {
-    name: "@kuuzuki-ge/core",
+    name: "@kenji-engine/core",
     entryPoint: "src/index.ts",
     outputDir: "dist",
     generateTypes: true,
@@ -55,11 +55,11 @@ export const PACKAGE_CONFIGS: PackageBuildConfig[] = [
     ],
   },
   {
-    name: "@kuuzuki-ge/pixel-art-generator",
+    name: "@kenji-engine/pixel-art-generator",
     entryPoint: "src/index.ts",
     outputDir: "dist",
     generateTypes: true,
-    external: ["@kuuzuki-ge/core"],
+    external: ["@kenji-engine/core"],
     targets: [
       {
         name: "universal",
@@ -71,7 +71,7 @@ export const PACKAGE_CONFIGS: PackageBuildConfig[] = [
     ],
   },
   {
-    name: "@kuuzuki-ge/mcp-server",
+    name: "@kenji-engine/mcp-server",
     entryPoint: "src/server.ts",
     outputDir: "dist",
     generateTypes: true,
@@ -87,7 +87,7 @@ export const PACKAGE_CONFIGS: PackageBuildConfig[] = [
     ],
   },
   {
-    name: "@kuuzuki-ge/cli",
+    name: "@kenji-engine/cli",
     entryPoint: "src/index.ts",
     outputDir: "dist",
     generateTypes: true,
@@ -105,7 +105,7 @@ export const PACKAGE_CONFIGS: PackageBuildConfig[] = [
     ],
   },
   {
-    name: "@kuuzuki-ge/butler-deploy",
+    name: "@kenji-engine/butler-deploy",
     entryPoint: "src/index.ts",
     outputDir: "dist",
     generateTypes: true,

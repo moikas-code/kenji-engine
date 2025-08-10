@@ -1,4 +1,4 @@
-import { System, Entity, Transform2D, Collider2D } from "@kuuzuki-ge/core";
+import { System, Entity, Transform2D, Collider2D } from "@kenji-engine/core";
 
 export class BrickSystem extends System {
   priority = 30;

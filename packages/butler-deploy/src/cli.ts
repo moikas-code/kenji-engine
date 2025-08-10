@@ -91,7 +91,7 @@ async function generateDefaultConfig(): Promise<PipelineConfig> {
       version: packageJson.version || "1.0.0",
       description:
         packageJson.description || "A game built with Kuuzuki Game Engine",
-      tags: ["html5", "arcade", "kuuzuki-ge"],
+      tags: ["html5", "arcade", "kenji-engine"],
       genre: "Arcade",
       platforms: ["web"],
       minPlayers: 1,

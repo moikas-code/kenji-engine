@@ -160,35 +160,35 @@ packages/*/dist/           # Individual package builds
 
 ## Package Build Details
 
-### @kuuzuki-ge/core
+### @kenji-engine/core
 
 - **Target**: Browser + Node.js
 - **Features**: ECS architecture, rendering, input
 - **External**: Three.js (kept external for CDN)
 - **Size Target**: < 500KB
 
-### @kuuzuki-ge/pixel-art-generator
+### @kenji-engine/pixel-art-generator
 
 - **Target**: Universal
 - **Features**: Procedural pixel art generation
-- **Dependencies**: @kuuzuki-ge/core
+- **Dependencies**: @kenji-engine/core
 - **Size Target**: < 200KB
 
-### @kuuzuki-ge/mcp-server
+### @kenji-engine/mcp-server
 
 - **Target**: Node.js
 - **Features**: MCP server for AI integration
 - **External**: @modelcontextprotocol/sdk, zod
 - **Size Target**: < 300KB
 
-### @kuuzuki-ge/cli
+### @kenji-engine/cli
 
 - **Target**: Node.js
 - **Features**: Command-line interface
-- **Binary**: `kuuzuki-ge`
+- **Binary**: `kenji-engine`
 - **Size Target**: < 100KB
 
-### @kuuzuki-ge/butler-deploy
+### @kenji-engine/butler-deploy
 
 - **Target**: Node.js
 - **Features**: Itch.io deployment automation

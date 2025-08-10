@@ -141,7 +141,7 @@ Unlike traditional engines (Unity, Godot, Phaser), Kenji Engine is built from th
    cd packages/cli && bun link && cd ../..
    ```
 
-   This gives you the `kuuzuki-ge` command with the interactive menu.
+   This gives you the `kenji-engine` command with the interactive menu.
 
    **Option B: Install individual CLI tools:**
 
@@ -155,7 +155,7 @@ Unlike traditional engines (Unity, Godot, Phaser), Kenji Engine is built from th
    bun link
    ```
 
-   This gives you `kuuzuki-editor` and `kuuzuki-ge` commands.
+   This gives you `kuuzuki-editor` and `kenji-engine` commands.
 
    **Option C: Install all tools:**
 
@@ -184,7 +184,7 @@ Unlike traditional engines (Unity, Godot, Phaser), Kenji Engine is built from th
    bun link
    ```
 
-   This gives you `kuuzuki-editor` and `kuuzuki-ge` commands.
+   This gives you `kuuzuki-editor` and `kenji-engine` commands.
 
    **Option C: Install all tools:**
 
@@ -233,7 +233,7 @@ Once you've run `bun link`, you'll have these commands available globally:
 - `kenji-editor build` - Build project
 - `kenji-editor deploy` - Deploy to itch.io
 
-**Note:** The basic CLI also provides `kuuzuki-ge` commands, but the main interactive version is recommended for the best experience.
+**Note:** The basic CLI also provides `kenji-engine` commands, but the main interactive version is recommended for the best experience.
 
 ### Create Your First Game
 

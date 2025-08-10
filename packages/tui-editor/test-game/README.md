@@ -1,6 +1,6 @@
 # test-game
 
-A game built with [Kuuzuki Game Engine](https://github.com/moikas-code/kuuzuki-ge).
+A game built with [Kuuzuki Game Engine](https://github.com/moikas-code/kenji-engine).
 
 ## Development
 
@@ -28,7 +28,7 @@ TODO: Add your game features here
 
 ## Built With
 
-- [Kuuzuki Game Engine](https://github.com/moikas-code/kuuzuki-ge) - Modern TypeScript game engine
+- [Kuuzuki Game Engine](https://github.com/moikas-code/kenji-engine) - Modern TypeScript game engine
 - [Bun](https://bun.sh) - Fast JavaScript runtime and package manager
 - TypeScript - Type-safe JavaScript
 

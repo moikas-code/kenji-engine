@@ -1,6 +1,6 @@
 {
   "name": "kenji-engine-pong-showcase",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "type": "module",
   "description": "Classic Pong game built with Kenji Engine - AI-assisted development example",
   "main": "dist/main.js",

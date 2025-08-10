@@ -40,10 +40,10 @@ Transform your terminal into a powerful game development environment with real-t
 
 ```bash
 # Install the TUI editor
-npm install -g @kuuzuki-ge/tui-editor
+npm install -g @kenji-engine/tui-editor
 
 # Or add to existing project
-npm install @kuuzuki-ge/tui-editor
+npm install @kenji-engine/tui-editor
 ```
 
 ### Create New Project with Editor
@@ -129,7 +129,7 @@ kuuzuki-editor edit -p ./my-game-project
 Create custom components that automatically appear in the editor:
 
 ```typescript
-import { Component } from "@kuuzuki-ge/core";
+import { Component } from "@kenji-engine/core";
 
 export class HealthComponent extends Component {
   constructor(
@@ -198,7 +198,7 @@ kuuzuki-editor edit --theme ./my-theme.json
 
 ```bash
 # Install VS Code extension for seamless integration
-code --install-extension kuuzuki-ge.tui-editor
+code --install-extension kenji-engine.tui-editor
 ```
 
 ### CI/CD Pipeline

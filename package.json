@@ -32,7 +32,10 @@
     "deploy:setup": "./scripts/setup-butler.sh",
     "deploy:dry-run": "./scripts/deploy-itch.sh --dry-run",
     "deploy:cli": "bun run packages/butler-deploy/src/cli.ts",
-    "size-analysis": "bun run build && cat dist/BUILD_REPORT.md"
+    "size-analysis": "bun run build && cat dist/BUILD_REPORT.md",
+    "setup-hooks": "bash scripts/setup-git-hooks.sh",
+    "validate-versions": "bash scripts/validate-versions.sh",
+    "postinstall": "bun run setup-hooks"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.1",

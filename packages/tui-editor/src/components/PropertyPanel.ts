@@ -9,7 +9,7 @@ import {
   UIButton,
   UIPanel,
   GameState,
-} from "@kuuzuki-ge/core";
+} from "@kenji-engine/core";
 
 export interface PropertyPanelState {
   selectedEntity: Entity | null;

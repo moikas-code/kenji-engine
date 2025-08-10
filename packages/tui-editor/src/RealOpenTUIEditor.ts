@@ -1,4 +1,4 @@
-import { GameEngine, World } from "@kuuzuki-ge/core";
+import { GameEngine, World } from "@kenji-engine/core";
 import { Renderable } from "@opentui/core";
 import { OptimizedBuffer, RGBA } from "./SimpleOpenTUIBuffer";
 import { FlexDirection } from "yoga-layout";

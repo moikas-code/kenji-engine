@@ -12,7 +12,7 @@ This document describes the complete automated itch.io deployment system for the
 - ✅ **Configured**: Ready for itch.io deployment
 - ✅ **Verified**: Working with dry-run tests
 
-### 2. Deployment Package (`@kuuzuki-ge/butler-deploy`)
+### 2. Deployment Package (`@kenji-engine/butler-deploy`)
 
 - ✅ **ButlerDeployer**: Core deployment functionality
 - ✅ **DeploymentPipeline**: Multi-target build and deploy pipeline
@@ -203,7 +203,7 @@ Complete game documentation with controls, features, and technical details.
     "title": "Kuuzuki Breakout",
     "author": "Kuuzuki Game Engine",
     "description": "A classic Breakout game built with the Kuuzuki Game Engine",
-    "tags": ["html5", "arcade", "breakout", "kuuzuki-ge", "pixel-art", "retro"],
+    "tags": ["html5", "arcade", "breakout", "kenji-engine", "pixel-art", "retro"],
     "controls": [
       "Left/Right Arrow Keys or A/D - Move paddle",
       "Spacebar - Launch ball / Pause game",

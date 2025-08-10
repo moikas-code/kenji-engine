@@ -1,4 +1,4 @@
-import { World, Entity, Transform2D, Velocity2D, Sprite2D, Collider2D } from "@kuuzuki-ge/core";
+import { World, Entity, Transform2D, Velocity2D, Sprite2D, Collider2D } from "@kenji-engine/core";
 import { PaddleSystem } from "./systems/PaddleSystem";
 import { BallSystem } from "./systems/BallSystem";
 import { BrickSystem } from "./systems/BrickSystem";

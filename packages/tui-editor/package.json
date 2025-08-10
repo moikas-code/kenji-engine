@@ -1,6 +1,6 @@
 {
   "name": "@kenji-engine/tui-editor",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "type": "module",
   "description": "Terminal-based visual game editor for Kenji Game Engine using OpenTUI",
   "main": "dist/index.js",

@@ -13,11 +13,11 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
-      "@kuuzuki-ge/core": ["./packages/core/src"],
-      "@kuuzuki-ge/pixel-art-generator": ["./packages/pixel-art-generator/src"],
-      "@kuuzuki-ge/mcp-server": ["./packages/mcp-server/src"],
-      "@kuuzuki-ge/butler-deploy": ["./packages/butler-deploy/src"],
-      "@kuuzuki-ge/cli": ["./packages/cli/src"]
+      "@kenji-engine/core": ["./packages/core/src"],
+      "@kenji-engine/pixel-art-generator": ["./packages/pixel-art-generator/src"],
+      "@kenji-engine/mcp-server": ["./packages/mcp-server/src"],
+      "@kenji-engine/butler-deploy": ["./packages/butler-deploy/src"],
+      "@kenji-engine/cli": ["./packages/cli/src"]
     }
   },
   "include": ["packages/*/src/**/*"],

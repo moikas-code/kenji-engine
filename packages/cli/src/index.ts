@@ -1,7 +1,7 @@
 #!/usr/bin/env bun
 
 import { parseArgs } from 'util';
-import { GameProjectManager } from '@kuuzuki-ge/mcp-server/src/GameProjectManager';
+import { GameProjectManager } from '@kenji-engine/mcp-server/src/GameProjectManager';
 
 const args = parseArgs({
   args: Bun.argv.slice(2),
@@ -25,7 +25,7 @@ async function main() {
   }
 
   if (args.values.version) {
-    console.log('kuuzuki-ge-cli v1.0.0');
+    console.log('kenji-engine-cli v1.0.0');
     return;
   }
 
@@ -48,7 +48,7 @@ async function main() {
 async function createProject(name: string, options: any) {
   if (!name) {
     console.error('Project name is required');
-    console.log('Usage: kuuzuki-ge create <project-name>');
+    console.log('Usage: kenji-engine create <project-name>');
     return;
   }
 
@@ -91,7 +91,7 @@ function showHelp() {
   console.log(`🎮 Kuuzuki Game Engine CLI
 
 Usage:
-  kuuzuki-ge <command> [options]
+  kenji-engine <command> [options]
 
 Commands:
   create <name>     Create a new game project
@@ -106,10 +106,10 @@ Options:
   -v, --version    Show version
 
 Examples:
-  kuuzuki-ge create my-pong-game -t pong
-  kuuzuki-ge create my-3d-game --type 3d
-  kuuzuki-ge build my-pong-game
-  kuuzuki-ge deploy my-pong-game
+  kenji-engine create my-pong-game -t pong
+  kenji-engine create my-3d-game --type 3d
+  kenji-engine build my-pong-game
+  kenji-engine deploy my-pong-game
   `);
 }
 

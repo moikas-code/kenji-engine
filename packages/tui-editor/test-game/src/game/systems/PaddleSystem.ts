@@ -1,4 +1,4 @@
-import { System, Entity, Transform2D, Velocity2D } from "@kuuzuki-ge/core";
+import { System, Entity, Transform2D, Velocity2D } from "@kenji-engine/core";
 
 export class PaddleSystem extends System {
   priority = 10;

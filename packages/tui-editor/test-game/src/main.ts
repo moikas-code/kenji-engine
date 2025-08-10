@@ -1,4 +1,4 @@
-import { GameEngine } from "@kuuzuki-ge/core";
+import { GameEngine } from "@kenji-engine/core";
 import { BreakoutGame } from "./game/BreakoutGame";
 
 async function main() {

@@ -1,4 +1,4 @@
-import { Entity, World } from "@kuuzuki-ge/core";
+import { Entity, World } from "@kenji-engine/core";
 import { TUIComponent } from "../TUIRenderer";
 
 export interface SceneHierarchyState {

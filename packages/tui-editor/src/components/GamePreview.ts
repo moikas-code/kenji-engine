@@ -4,7 +4,7 @@ import {
   World,
   Transform2D,
   Sprite2D,
-} from "@kuuzuki-ge/core";
+} from "@kenji-engine/core";
 import { TUIComponent } from "../TUIRenderer";
 
 export interface GamePreviewState {
