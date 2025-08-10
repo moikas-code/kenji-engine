@@ -1,4 +1,4 @@
-import { System, Entity, InputManager } from "@kenji-ge/core";
+import { System, Entity, InputManager } from "@kenji-engine/core";
 import { PongGameState, PongGame } from "../PongGame";
 
 export class PongGameStateSystem extends System {

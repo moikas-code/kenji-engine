@@ -1,4 +1,4 @@
-import { System, Entity, Transform2D, Velocity2D } from "@kenji-ge/core";
+import { System, Entity, Transform2D, Velocity2D } from "@kenji-engine/core";
 import { PongGameState, GAME_CONFIG } from "../PongGame";
 
 export class PongScoringSystem extends System {

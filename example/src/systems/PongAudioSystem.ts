@@ -1,4 +1,4 @@
-import { System, Entity, AudioManager } from "@kenji-ge/core";
+import { System, Entity, AudioManager } from "@kenji-engine/core";
 
 export class PongAudioSystem extends System {
   public priority = 90; // Before UI rendering
