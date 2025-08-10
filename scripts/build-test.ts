@@ -60,17 +60,20 @@ async function testPackageImports() {
 
   for (const packageName of packages) {
     const packageDir = join(ROOT_DIR, "packages", packageName.split("/")[1]);
-    const distDir = join(packageDir, "dist");
-    const indexPath = join(distDir, "index.js");
 
-    if (!existsSync(indexPath)) {
-      throw new Error(`Missing build artifact: ${indexPath}`);
+    // Read package.json to get the correct main entry point
+    const packageJsonPath = join(packageDir, "package.json");
+    const packageJson = JSON.parse(readFileSync(packageJsonPath, "utf-8"));
+    const mainEntry = packageJson.main || "./dist/index.js";
+    const entryPath = join(packageDir, mainEntry);
+
+    if (!existsSync(entryPath)) {
+      throw new Error(`Missing build artifact: ${entryPath}`);
     }
-
     // Test import by creating a temporary test file
     const testImportCode = `
       try {
-        const module = await import("${indexPath}");
+        const module = await import("${entryPath}");
         console.log("✅ ${packageName}: Import successful");
         console.log("  Exports:", Object.keys(module).join(", "));
       } catch (error) {
