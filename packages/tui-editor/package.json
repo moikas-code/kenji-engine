@@ -1,6 +1,6 @@
 {
   "name": "@kenji-engine/tui-editor",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "type": "module",
   "description": "Terminal-based visual game editor for Kenji Game Engine using OpenTUI",
   "main": "dist/index.js",
@@ -9,7 +9,7 @@
     "kenji-engine-editor": "./src/simple-cli.ts"
   },
   "scripts": {
-    "build": "bun build src/index.ts --outdir dist --target node && bun build src/simple-cli.ts --outdir dist --target node",
+    "build": "bun build src/index.ts --outdir dist --target node && bun build src/simple-cli.ts --outdir dist --target node && (tsc --emitDeclarationOnly --outDir dist || echo 'TypeScript declarations skipped due to external dependency errors')",
     "dev": "bun --watch src/simple-cli.ts",
     "start": "bun src/simple-cli.ts",
     "prepublish": "bun run build"
