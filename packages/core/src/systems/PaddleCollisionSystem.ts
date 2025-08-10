@@ -56,7 +56,7 @@ export class PaddleCollisionSystem extends System {
           // Ensure minimum upward velocity to prevent ball getting stuck
           const minUpwardSpeed = speed * 0.5; // At least 50% of speed goes upward
 
-          ballVelocity.x = Math.sin(angle) * speed * 0.8; // Horizontal component
+          ballVelocity.x = Math.sin(angle) * speed * 0.95; // Reduced speed loss from 0.8 to 0.95
           ballVelocity.y = -Math.max(
             minUpwardSpeed,
             Math.abs(Math.cos(angle) * speed)
@@ -66,8 +66,8 @@ export class PaddleCollisionSystem extends System {
           ballTransform.y =
             paddleTransform.y - paddleSprite.height / 2 - ballSprite.height / 2;
 
-          // Limit ball speed to prevent tunneling
-          const maxSpeed = 400;
+          // Limit ball speed to prevent tunneling (increased for faster gameplay)
+          const maxSpeed = 500;
           const currentSpeed = Math.sqrt(
             ballVelocity.x * ballVelocity.x + ballVelocity.y * ballVelocity.y
           );

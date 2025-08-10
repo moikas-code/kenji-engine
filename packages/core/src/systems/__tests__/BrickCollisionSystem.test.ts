@@ -171,7 +171,7 @@ describe("BrickCollisionSystem", () => {
       const speed = Math.sqrt(
         ballVelocity.x * ballVelocity.x + ballVelocity.y * ballVelocity.y
       );
-      expect(speed).toBeLessThanOrEqual(400); // Max speed limit
+      expect(speed).toBeLessThanOrEqual(500); // Max speed limit
     });
   });
 

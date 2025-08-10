@@ -66,6 +66,10 @@ export class GameStateSystem extends System {
       bricks.length === 0
     ) {
       console.log("🦇 All bricks destroyed! Victory!");
+      console.log(
+        `🦇 DEBUG: Calling onGameWon callback, callback exists: ${!!this
+          .onGameWon}`
+      );
       this.gameWonTriggered = true;
       this.lastGameWonFrame = this.frameCounter;
       this.onGameWon?.();

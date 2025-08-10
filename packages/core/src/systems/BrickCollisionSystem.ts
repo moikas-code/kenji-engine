@@ -106,8 +106,8 @@ export class BrickCollisionSystem extends System {
           const variation = hitPos * 30; // Reduced variation
           ballVelocity.x += variation;
 
-          // Limit ball speed to prevent tunneling
-          const maxSpeed = 400;
+          // Limit ball speed to prevent tunneling (increased for faster gameplay)
+          const maxSpeed = 500;
           const currentSpeed = Math.sqrt(
             ballVelocity.x * ballVelocity.x + ballVelocity.y * ballVelocity.y
           );
