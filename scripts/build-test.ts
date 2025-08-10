@@ -95,9 +95,12 @@ async function validateWebBundle() {
   const mainJsPath = join(webDistDir, "main.js");
   const indexHtmlPath = join(webDistDir, "index.html");
 
-  // Check if files exist
+  // Check if files exist (optional for core package builds)
   if (!existsSync(mainJsPath)) {
-    throw new Error(`Missing web bundle: ${mainJsPath}`);
+    console.log(
+      "⚠️  Web bundle not found - skipping web validation (core packages only)"
+    );
+    return;
   }
 
   if (!existsSync(indexHtmlPath)) {

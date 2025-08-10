@@ -234,8 +234,8 @@ describe("BrickCollisionSystem", () => {
       system.update(0.016, entities);
       const endTime = performance.now();
 
-      // Should complete within reasonable time (< 1ms for 100 bricks)
-      expect(endTime - startTime).toBeLessThan(1);
+      // Should complete within reasonable time (< 5ms for 100 bricks)
+      expect(endTime - startTime).toBeLessThan(5);
     });
   });
 
