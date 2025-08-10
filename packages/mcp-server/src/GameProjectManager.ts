@@ -41,7 +41,7 @@ export class GameProjectManager {
   ) {
     const packageJson = {
       name: config.name,
-      version: "1.0.0",
+      version: "0.0.1",
       type: "module",
       scripts: {
         dev: "bun run --watch src/main.ts",
@@ -60,8 +60,8 @@ export class GameProjectManager {
     };
 
     if (config.type === "3d") {
-      packageJson.dependencies!["three"] = "latest";
-      packageJson.dependencies!["@types/three"] = "latest";
+      (packageJson.dependencies as any)["three"] = "latest";
+      (packageJson.dependencies as any)["@types/three"] = "latest";
     }
 
     await Bun.write(

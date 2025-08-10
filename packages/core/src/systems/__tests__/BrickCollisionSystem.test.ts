@@ -32,13 +32,22 @@ describe("BrickCollisionSystem", () => {
     ball = new Entity()
       .addComponent(new Transform2D(100, 100))
       .addComponent(new Velocity2D(150, -200))
-      .addComponent(new Sprite2D(mockCanvas))
+      .addComponent(
+        new Sprite2D(mockCanvas.width, mockCanvas.height, "#FFFFFF", mockCanvas)
+      )
       .addTag("ball");
 
     // Create brick entity
     brick = new Entity()
       .addComponent(new Transform2D(100, 80))
-      .addComponent(new Sprite2D(mockBrickCanvas))
+      .addComponent(
+        new Sprite2D(
+          mockBrickCanvas.width,
+          mockBrickCanvas.height,
+          "#FFFFFF",
+          mockBrickCanvas
+        )
+      )
       .addTag("brick");
   });
 
@@ -172,14 +181,20 @@ describe("BrickCollisionSystem", () => {
       const brick2 = new Entity()
         .addComponent(new Transform2D(100, 100))
         .addComponent(
-          new Sprite2D({ width: 60, height: 20 } as HTMLCanvasElement)
+          new Sprite2D(60, 20, "#FFFFFF", {
+            width: 60,
+            height: 20,
+          } as HTMLCanvasElement)
         )
         .addTag("brick");
 
       const brick3 = new Entity()
         .addComponent(new Transform2D(100, 120))
         .addComponent(
-          new Sprite2D({ width: 60, height: 20 } as HTMLCanvasElement)
+          new Sprite2D(60, 20, "#FFFFFF", {
+            width: 60,
+            height: 20,
+          } as HTMLCanvasElement)
         )
         .addTag("brick");
 
@@ -204,7 +219,10 @@ describe("BrickCollisionSystem", () => {
         const testBrick = new Entity()
           .addComponent(new Transform2D(i * 10, 80))
           .addComponent(
-            new Sprite2D({ width: 60, height: 20 } as HTMLCanvasElement)
+            new Sprite2D(60, 20, "#FFFFFF", {
+              width: 60,
+              height: 20,
+            } as HTMLCanvasElement)
           )
           .addTag("brick");
         bricks.push(testBrick);

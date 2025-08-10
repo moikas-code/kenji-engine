@@ -63,13 +63,22 @@ describe("Breakout Game Simulation Tests", () => {
     ball = new Entity()
       .addComponent(new Transform2D(400, 500))
       .addComponent(new Velocity2D(150, -200))
-      .addComponent(new Sprite2D(ballSprite))
+      .addComponent(
+        new Sprite2D(ballSprite.width, ballSprite.height, "#FFFFFF", ballSprite)
+      )
       .addTag("ball");
 
     // Create paddle
     paddle = new Entity()
       .addComponent(new Transform2D(400, 550))
-      .addComponent(new Sprite2D(paddleSprite))
+      .addComponent(
+        new Sprite2D(
+          paddleSprite.width,
+          paddleSprite.height,
+          "#FFFFFF",
+          paddleSprite
+        )
+      )
       .addTag("paddle");
 
     // Create brick grid
@@ -78,7 +87,14 @@ describe("Breakout Game Simulation Tests", () => {
       for (let col = 0; col < 12; col++) {
         const brick = new Entity()
           .addComponent(new Transform2D(70 + col * 65, 80 + row * 25))
-          .addComponent(new Sprite2D(brickSprite))
+          .addComponent(
+            new Sprite2D(
+              brickSprite.width,
+              brickSprite.height,
+              "#FFFFFF",
+              brickSprite
+            )
+          )
           .addTag("brick");
         bricks.push(brick);
       }
@@ -245,7 +261,10 @@ describe("Breakout Game Simulation Tests", () => {
             new Transform2D(Math.random() * 800, Math.random() * 600)
           )
           .addComponent(
-            new Sprite2D({ width: 4, height: 4 } as HTMLCanvasElement)
+            new Sprite2D(4, 4, "#FFFFFF", {
+              width: 4,
+              height: 4,
+            } as HTMLCanvasElement)
           );
         extraEntities.push(entity);
         engine.world.addEntity(entity);
@@ -406,7 +425,10 @@ describe("Breakout Game Simulation Tests", () => {
               new Transform2D(Math.random() * 800, Math.random() * 600)
             )
             .addComponent(
-              new Sprite2D({ width: 4, height: 4 } as HTMLCanvasElement)
+              new Sprite2D(4, 4, "#FFFFFF", {
+                width: 4,
+                height: 4,
+              } as HTMLCanvasElement)
             );
           tempEntities.push(entity);
           engine.world.addEntity(entity);

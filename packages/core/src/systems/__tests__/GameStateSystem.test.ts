@@ -47,13 +47,22 @@ describe("GameStateSystem", () => {
     ball = new Entity()
       .addComponent(new Transform2D(400, 300))
       .addComponent(new Velocity2D(150, -200))
-      .addComponent(new Sprite2D(mockCanvas))
+      .addComponent(
+        new Sprite2D(mockCanvas.width, mockCanvas.height, "#FFFFFF", mockCanvas)
+      )
       .addTag("ball");
 
     // Create paddle entity
     paddle = new Entity()
       .addComponent(new Transform2D(400, 550))
-      .addComponent(new Sprite2D(mockPaddleCanvas))
+      .addComponent(
+        new Sprite2D(
+          mockPaddleCanvas.width,
+          mockPaddleCanvas.height,
+          "#FFFFFF",
+          mockPaddleCanvas
+        )
+      )
       .addTag("paddle");
 
     // Create some bricks
@@ -61,7 +70,14 @@ describe("GameStateSystem", () => {
     for (let i = 0; i < 5; i++) {
       const brick = new Entity()
         .addComponent(new Transform2D(100 + i * 65, 80))
-        .addComponent(new Sprite2D(mockBrickCanvas))
+        .addComponent(
+          new Sprite2D(
+            mockBrickCanvas.width,
+            mockBrickCanvas.height,
+            "#FFFFFF",
+            mockBrickCanvas
+          )
+        )
         .addTag("brick");
       bricks.push(brick);
     }
@@ -188,7 +204,10 @@ describe("GameStateSystem", () => {
         .addComponent(new Transform2D(200, 700)) // Off screen
         .addComponent(new Velocity2D(100, 100))
         .addComponent(
-          new Sprite2D({ width: 8, height: 8 } as HTMLCanvasElement)
+          new Sprite2D(8, 8, "#FFFFFF", {
+            width: 8,
+            height: 8,
+          } as HTMLCanvasElement)
         )
         .addTag("ball");
 
@@ -254,7 +273,10 @@ describe("GameStateSystem", () => {
             new Transform2D((i % 100) * 10, Math.floor(i / 100) * 25)
           )
           .addComponent(
-            new Sprite2D({ width: 60, height: 20 } as HTMLCanvasElement)
+            new Sprite2D(60, 20, "#FFFFFF", {
+              width: 60,
+              height: 20,
+            } as HTMLCanvasElement)
           )
           .addTag("brick");
         manyBricks.push(brick);
