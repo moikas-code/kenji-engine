@@ -1,0 +1,246 @@
+{
+  "project": {
+    "name": "kenji-ge",
+    "type": "game-engine",
+    "description": "A complete game engine MVP that starts with Pong and scales to support 20+ games, featuring built-in pixel art generation for 2D games, Three.js support for 3D games, itch.io deployment automation, and AI assistance through MCP integration with kenji.",
+    "version": "0.0.0",
+    "architecture": "monorepo",
+    "workspaces": true
+  },
+  "commands": {
+    "build": "bun run build",
+    "buildPackages": "bun run build:packages",
+    "dev": "bun run dev",
+    "test": "bun test",
+    "testSingle": "bun test --filter",
+    "clean": "rm -rf packages/*/dist/",
+    "mcp": "bun run packages/mcp-server/src/server.ts",
+    "publish": "bun run build && changeset publish",
+    "lint": "echo 'No linter configured - use moidvk tools'",
+    "typecheck": "tsc --noEmit",
+    "format": "echo 'No formatter configured - use moidvk tools'"
+  },
+  "codeStyle": {
+    "language": "typescript",
+    "formatter": "prettier",
+    "linter": "eslint",
+    "importStyle": "esm",
+    "quotes": "double",
+    "semicolons": true,
+    "indentation": "2-spaces",
+    "trailingComma": "es5",
+    "moduleResolution": "bundler"
+  },
+  "conventions": {
+    "fileNaming": "camelCase",
+    "functionNaming": "camelCase",
+    "classNaming": "PascalCase",
+    "constantNaming": "UPPER_SNAKE_CASE",
+    "testFilePattern": "**/*.test.ts",
+    "componentPattern": "PascalCase.ts",
+    "systemPattern": "PascalCaseSystem.ts",
+    "packageNaming": "@kenji-ge/package-name"
+  },
+  "tools": {
+    "packageManager": "bun",
+    "runtime": "bun",
+    "bundler": "bun",
+    "framework": "custom-ecs",
+    "database": "none",
+    "testingFramework": "bun:test",
+    "buildTool": "bun",
+    "deployment": "butler-itch",
+    "graphics": "canvas2d-threejs",
+    "audio": "web-audio-api"
+  },
+  "paths": {
+    "src": "packages/*/src",
+    "tests": "packages/*/src/**/*.test.ts",
+    "docs": "README.md",
+    "config": ".",
+    "build": "packages/*/dist",
+    "assets": "example/",
+    "core": "packages/core/src",
+    "mcpServer": "packages/mcp-server/src",
+    "pixelArt": "packages/pixel-art-generator/src",
+    "cli": "packages/cli/src",
+    "deploy": "packages/butler-deploy/src"
+  },
+  "rules": {
+    "critical": [
+      {
+        "id": "create-ui-system-for-kenji-game-engine-breakout--mdwb4mny",
+        "text": "Create UI system for kenji Game Engine Breakout with ECS architecture",
+        "category": "critical",
+        "reason": "Need comprehensive UI system with score display, lives counter, game screens, and pause functionality",
+        "createdAt": "2025-08-03T23:23:09.886Z",
+        "usageCount": 0,
+        "analytics": {
+          "timesApplied": 0,
+          "timesIgnored": 0,
+          "effectivenessScore": 0,
+          "userFeedback": []
+        },
+        "documentationLinks": [],
+        "tags": []
+      },
+      {
+        "id": "set-up-automated-itchio-deployment-system-with-but-mdwbixy2",
+        "text": "Set up automated itch.io deployment system with butler for kenji Game Engine",
+        "category": "critical",
+        "reason": "Need complete deployment automation with butler, versioning, and proper itch.io integration",
+        "createdAt": "2025-08-03T23:34:17.690Z",
+        "usageCount": 0,
+        "analytics": {
+          "timesApplied": 0,
+          "timesIgnored": 0,
+          "effectivenessScore": 0,
+          "userFeedback": []
+        },
+        "documentationLinks": [],
+        "tags": []
+      },
+      {
+        "id": "always-run-hallucinationdetector-agent-after-imple-me68nbrw",
+        "text": "Always run hallucination-detector agent after implementing complex technical solutions",
+        "category": "critical",
+        "reason": "Critical to verify accuracy of technical implementations and catch potential errors, inconsistencies, or false claims before they cause issues",
+        "createdAt": "2025-08-10T22:11:25.148Z",
+        "usageCount": 0,
+        "analytics": {
+          "timesApplied": 0,
+          "timesIgnored": 0,
+          "effectivenessScore": 0,
+          "userFeedback": []
+        },
+        "documentationLinks": [],
+        "tags": []
+      }
+    ],
+    "preferred": [],
+    "contextual": [],
+    "deprecated": []
+  },
+  "dependencies": {
+    "critical": [
+      "@modelcontextprotocol/sdk",
+      "three",
+      "zod",
+      "typescript"
+    ],
+    "preferred": [
+      "@changesets/cli",
+      "@types/bun",
+      "@types/three"
+    ],
+    "avoided": [
+      "webpack",
+      "create-react-app",
+      "vue-cli",
+      "angular-cli"
+    ]
+  },
+  "mcp": {
+    "servers": {
+      "moidvk": {
+        "type": "local",
+        "command": [
+          "npx",
+          "@moikas/moidvk",
+          "serve"
+        ],
+        "environment": {},
+        "enabled": true,
+        "timeout": 30000,
+        "retries": 3
+      },
+      "kb-mcp": {
+        "type": "local",
+        "command": [
+          "kb-mcp",
+          "serve",
+          "--local"
+        ],
+        "environment": {
+          "KB_PATH": "./kb"
+        },
+        "enabled": true,
+        "timeout": 30000,
+        "retries": 3
+      },
+      "kenji-game-engine": {
+        "type": "local",
+        "command": [
+          "bun",
+          "run",
+          "packages/mcp-server/src/server.ts"
+        ],
+        "environment": {
+          "NODE_ENV": "development"
+        },
+        "enabled": true,
+        "timeout": 30000,
+        "retries": 3
+      }
+    },
+    "toolPreferences": {
+      "codeQuality": "mcp__moidvk__check_code_practices",
+      "formatting": "mcp__moidvk__format_code",
+      "security": "mcp__moidvk__scan_security_vulnerabilities",
+      "production": "mcp__moidvk__check_production_readiness",
+      "knowledgeBase": "kb-mcp_kb_read",
+      "search": "mcp__moidvk__semantic_development_search",
+      "analysis": "mcp__moidvk__intelligent_development_analysis"
+    }
+  },
+  "agent": {
+    "preferredTools": [
+      "read",
+      "write",
+      "edit",
+      "bash",
+      "glob",
+      "grep",
+      "list",
+      "todowrite",
+      "todoread",
+      "task"
+    ],
+    "workflowPreferences": {
+      "useKnowledgeBase": true,
+      "useMoidvkTools": true,
+      "useSubAgents": true,
+      "testBeforeClaiming": true,
+      "documentProgress": true
+    },
+    "gameEngineSpecific": {
+      "ecsPatterns": true,
+      "pixelArtGeneration": true,
+      "canvasRendering": true,
+      "mcpIntegration": true,
+      "itchDeployment": true
+    }
+  },
+  "ruleMetadata": {
+    "version": "1.0.0",
+    "lastModified": "2025-08-10T22:11:25.148Z",
+    "totalRules": 3,
+    "sessionRules": [
+      {
+        "ruleId": "create-ui-system-for-kenji-game-engine-breakout--mdwb4mny",
+        "learnedAt": "2025-08-03T23:23:09.886Z",
+        "context": "Need comprehensive UI system with score display, lives counter, game screens, and pause functionality"
+      },
+      {
+        "ruleId": "set-up-automated-itchio-deployment-system-with-but-mdwbixy2",
+        "learnedAt": "2025-08-03T23:34:17.690Z",
+        "context": "Need complete deployment automation with butler, versioning, and proper itch.io integration"
+      },
+      {
+        "ruleId": "always-run-hallucinationdetector-agent-after-imple-me68nbrw",
+        "learnedAt": "2025-08-10T22:11:25.148Z",
+        "context": "Critical to verify accuracy of technical implementations and catch potential errors, inconsistencies, or false claims before they cause issues"
+      }
+    ]
+  }
+}

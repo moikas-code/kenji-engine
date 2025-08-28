@@ -1,0 +1,46 @@
+#!/usr/bin/env bun
+
+// This is the entry point for the globally installed kenji command
+// It spawns the CLI script directly to avoid import issues
+
+import { fileURLToPath } from "url";
+import { dirname, join } from "path";
+import { spawn } from "child_process";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const packageRoot = join(__dirname, "..");
+const cliPath = join(packageRoot, "packages", "cli", "kenji.ts");
+
+// Get the arguments passed to the command  
+const args = process.argv.slice(2);
+
+// Spawn bun process with the CLI script from the package directory
+const child = spawn("bun", [cliPath, ...args], {
+  cwd: packageRoot,
+  stdio: "inherit",
+  env: {
+    ...process.env,
+    KENJI_GLOBAL: "true",
+    KENJI_ROOT: packageRoot,
+  },
+});
+
+// Handle process termination
+child.on("error", (error) => {
+  console.error("Failed to start kenji:", error);
+  process.exit(1);
+});
+
+child.on("exit", (code) => {
+  process.exit(code || 0);
+});
+
+// Forward signals to child process
+process.on("SIGINT", () => {
+  child.kill("SIGINT");
+});
+
+process.on("SIGTERM", () => {
+  child.kill("SIGTERM");
+});

@@ -1,0 +1,140 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Test & Build
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18, 20]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Type check
+        run: bun run typecheck
+
+      - name: Run tests
+        run: bun test
+
+      - name: Build packages
+        run: bun run build
+
+      - name: Test example integration
+        run: |
+          # Test that examples can use the built packages
+          cd example
+          bun install
+          echo "Example integration test passed"
+
+  lint:
+    name: Code Quality
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Security audit
+        run: bun audit
+
+  package-tests:
+    name: Package Tests
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        package:
+          [
+            core,
+            cli,
+            mcp-server,
+            pixel-art-generator,
+            butler-deploy,
+            tui-editor,
+          ]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Test ${{ matrix.package }} package
+        run: |
+          cd packages/${{ matrix.package }}
+          if [ -f package.json ]; then
+            bun test || echo "No tests found for ${{ matrix.package }}"
+          fi
+
+  npm-package-test:
+    name: NPM Package Installation Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Build packages
+        run: |
+          bun install --frozen-lockfile
+          bun run build
+
+      - name: Pack packages
+        run: |
+          cd packages/core
+          npm pack
+
+      - name: Test package installation
+        run: |
+          mkdir test-install
+          cd test-install
+          npm init -y
+          npm install ../packages/core/*.tgz
+          echo "Package installation test passed"

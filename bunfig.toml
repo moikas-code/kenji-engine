@@ -1,0 +1,6 @@
+# preload = ["@opentui/solid/preload"]
+
+[build]
+jsx = "automatic"
+# jsxImportSource = "@opentui/solid"
+jsxImportSource = "react"

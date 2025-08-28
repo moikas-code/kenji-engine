@@ -1,484 +1,171 @@
-# 🎮 Kenji Engine
+# Kenji - The TUI Engine
 
-**The first AI-native game engine.** Build games with natural language, generate assets with AI, deploy with one command.
-
-Kenji Engine is Kuuzuki's gaming brother - a complete game engine with built-in MCP server that enables AI-assisted game development. Create games using natural language, generate pixel art assets with AI, and deploy to itch.io automatically.
+A Terminal User Interface (TUI) engine built with TypeScript/Bun, designed for creating games and terminal applications with AI-driven development through MCP (Model Context Protocol) integration.
 
 ## Features
 
-### 🎮 Core Game Engine
-
-- **Entity Component System (ECS)** - Flexible architecture for game objects
-- **Built-in Components** - Transform2D, Velocity2D, Sprite2D, Collider2D
-- **Built-in Systems** - Movement, Rendering, Collision Detection
-- **Canvas2D Renderer** - Pixel-perfect 2D rendering
-- **Input Management** - Keyboard and mouse input handling
-- **Audio System** - Web Audio API integration
-- **Asset Management** - Image and canvas asset loading
-
-### 🎨 Pixel Art Generation
-
-- **Procedural Sprites** - Generate game assets on-demand
-- **Multiple Styles** - Retro, modern, and minimalist styles
-- **Game-Specific Generators** - Pong, Breakout, and more
-- **Zero Asset Requirement** - No need for external art assets
-
-### 🤖 AI-Native Development
-
-- **Built-in MCP Server** - Direct integration with Kuuzuki AI assistant
-- **Natural Language Coding** - "Make the ball faster", "Add particle effects"
-- **AI Asset Generation** - Generate sprites, sounds, and animations with AI
-- **Intelligent Code Generation** - AI creates game systems, components, and logic
-- **Smart Deployment** - AI handles itch.io publishing and optimization
-
-### 🛠️ Development Tools
-
-- **CLI Tool** - Command-line interface for project management
-- **Bun Runtime** - 10-100x faster builds and toolchain
-- **TypeScript** - Strict typing and modern ES modules
-- **Hot Reloading** - Fast development iteration
-
-### 🚀 Deployment
-
-- **Butler Integration** - Automated itch.io deployment
-- **Web Export** - HTML5 game packaging
-- **Build Pipeline** - Optimized production builds
-
-## 🤖 What Makes Kenji Different?
-
-### **First AI-Native Game Engine**
-
-Unlike traditional engines (Unity, Godot, Phaser), Kenji Engine is built from the ground up for AI-assisted development:
-
-- **Natural Language Programming**: "Make the ball faster", "Add particle effects"
-- **Built-in MCP Server**: Direct integration with Kuuzuki AI assistant
-- **AI Asset Generation**: Generate sprites, sounds, and animations with AI
-- **Intelligent Code Generation**: AI creates game systems and components
-- **Smart Deployment**: AI handles optimization and publishing
-
-### **Perfect for Modern Developers**
-
-- **100% TypeScript**: Type-safe game development
-- **Bun-Powered**: Lightning-fast builds and runtime
-- **ECS Architecture**: Scalable, maintainable game code
-- **Zero Configuration**: Works out of the box
-
-### **AI-Assisted Workflow**
-
-```bash
-# Traditional game development
-1. Write code manually
-2. Create assets in external tools
-3. Debug and test manually
-4. Deploy manually
-
-# Kenji Engine + Kuuzuki workflow
-1. "Create a Pong game"           # AI generates complete game
-2. "Make the paddles glow"        # AI adds visual effects
-3. "Add sound effects"           # AI generates and integrates audio
-4. "Deploy to itch.io"           # AI handles publishing
-```
+- **120 FPS**: Fixed timestep with interpolation for smooth games and interactive applications
+- **Entity Component System (ECS)**: Flexible architecture for game objects and UI components
+- **Terminal Rendering**: Double-buffered rendering with damage tracking for optimal performance
+- **Input System**: Non-blocking keyboard input with configurable mappings
+- **TUI Components**: Rich terminal interface components for forms, menus, and interactive elements
+- **MCP Integration**: AI agents can create and modify games and applications through natural language
 
 ## Quick Start
 
 ### Prerequisites
 
-- [Bun](https://bun.sh/) - JavaScript runtime and package manager
-- [Kuuzuki](https://kuuzuki.com) - AI assistant for enhanced development experience
+- Bun (latest version)
+- Terminal emulator with UTF-8 support
 
 ### Installation
 
-1. **Clone the repository:**
-
-   ```bash
-   git clone <repository-url> kenji-ge
-   cd kenji-ge
-   ```
-
-2. **Install dependencies:**
-
-   ```bash
-   bun install
-   ```
-
-3. **Build all packages:**
-
-   ```bash
-   bun run build
-   ```
-
-4. **Install CLI tools globally with bun link:**
-
-   **Option A: Automated setup (recommended):**
-
-   ```bash
-   # Run the setup script
-   ./scripts/setup-global.sh
-   ```
-
-   This builds all packages and links all commands automatically.
-
-   **Option B: Manual setup - main command only:**
-
-   ```bash
-   # From the root directory
-   bun run build:packages
-   bun link
-   ```
-
-   This gives you the `kenji-engine` command with the interactive menu.
-
-   **Option C: Manual setup - individual tools:**
-
-   ```bash
-   # Build packages first
-   bun run build:packages
-
-   # Install the TUI editor (includes interactive menu)
-   cd packages/tui-editor && bun link && cd ../..
-
-   # Install the basic CLI
-   cd packages/cli && bun link && cd ../..
-   ```
-
-   This gives you the `kuuzuki-ge` command with the interactive menu.
-
-   **Option B: Install individual CLI tools:**
-
-   ```bash
-   # Install the TUI editor (includes interactive menu)
-   cd packages/tui-editor
-   bun link
-
-   # Install the basic CLI
-   cd ../cli
-   bun link
-   ```
-
-   This gives you `kuuzuki-editor` and `kuuzuki-ge` commands.
-
-   **Option C: Install all tools:**
-
-   ```bash
-   # Install main command
-   bun link
-
-   # Install TUI editor
-   cd packages/tui-editor && bun link && cd ../..
-
-   # Install basic CLI
-   cd packages/cli && bun link && cd ../..
-   ```
-
-   This gives you the `kuuzuki` command with the interactive menu.
-
-   **Option B: Install individual CLI tools:**
-
-   ```bash
-   # Install the TUI editor (includes interactive menu)
-   cd packages/tui-editor
-   bun link
-
-   # Install the basic CLI
-   cd ../cli
-   bun link
-   ```
-
-   This gives you `kuuzuki-editor` and `kuuzuki-ge` commands.
-
-   **Option C: Install all tools:**
-
-   ```bash
-   # Install main command
-   bun link
-
-   # Install TUI editor
-   cd packages/tui-editor && bun link && cd ../..
-
-   # Install basic CLI
-   cd packages/cli && bun link && cd ../..
-   ```
-
-### Interactive Menu
-
-After linking, you can use the interactive menu from anywhere:
-
 ```bash
-kenji-ge
+bun install
 ```
 
-This will show you a beautiful menu with options to:
+### Using Kenji Engine
 
-- 🆕 **Create New Project** - Interactive project creation with templates
-- 🎯 **Open TUI Editor** - Launch the terminal-based visual editor
-- 🔨 **Build Project** - Compile your game for production
-- 🚀 **Deploy Project** - Deploy to itch.io
-- ❓ **Show Help** - View all available commands
+```bash
+# Show the main menu
+bun run kenji
 
-The menu automatically detects existing game projects in your current directory and provides contextual options.
+# Create a new game or application project
+bun run kenji create "My Amazing Game" --type=game
+bun run kenji create "My Terminal App" --type=app
 
-### Available Commands After Linking
+# Get help
+bun run kenji --help
 
-Once you've run `bun link`, you'll have these commands available globally:
+# Show version
+bun run kenji --version
+```
 
-**Main Command:**
+### Testing the Engine
 
-- `kenji-ge` - Interactive menu (recommended)
+```bash
+bun run test-engine.ts
+```
 
-**TUI Editor Commands:**
+### Playing Pong
 
-- `kenji-editor` - TUI editor with interactive menu
-- `kenji-editor create <name>` - Create new project
-- `kenji-editor start` - Launch TUI editor
-- `kenji-editor build` - Build project
-- `kenji-editor deploy` - Deploy to itch.io
+```bash
+cd examples/pong
+bun run index.ts
+```
 
-**Note:** The basic CLI also provides `kuuzuki-ge` commands, but the main interactive version is recommended for the best experience.
+**Controls:**
+- Player 1: W (up) / S (down)
+- Player 2: I (up) / K (down)
+- Q: Quit
 
-### Create Your First Game
+## Architecture
 
-1. **Create a new Pong game:**
+### Core Systems
 
-   ```bash
-   kenji-ge create my-pong-game --template pong
-   cd my-pong-game
-   ```
+1. **Core Engine** (`src/engine/core.ts`)
+   - Manages the main loop with fixed timestep for games and smooth UI interactions
+   - Emits events for update, fixed update, and render cycles
+   - Maintains stable 60 FPS for responsive games and applications
 
-2. **Install dependencies:**
+2. **Renderer** (`src/engine/renderer.ts`)
+   - Double-buffered terminal rendering
+   - Character-based sprites and UI elements with Unicode support
+   - Damage tracking for optimal performance
 
-   ```bash
-   bun install
-   ```
+3. **ECS** (`src/ecs/world.ts`)
+   - Entities as numeric IDs for game objects and UI components
+   - Components as plain data objects
+   - Efficient entity queries and management
 
-3. **Start development:**
+4. **Input Manager** (`src/engine/input/inputManager.ts`)
+   - Non-blocking keyboard input
+   - Key mapping system
+   - Event-based input handling for games and TUI interactions
 
-   ```bash
-   bun run dev
-   ```
+### Game & Application Systems
 
-4. **Open in browser:**
-   Open `index.html` in your browser to see your game!
-
-### AI-Assisted Development with Kuuzuki
-
-1. **Start Kenji's MCP server and connect Kuuzuki:**
-
-   ```bash
-   cd my-pong-game
-   kenji mcp  # Start MCP server
-   kuuzuki    # Connect AI assistant to Kenji
-   ```
-
-2. **Use natural language commands:**
-   - "Generate pixel art sprites for paddles and ball"
-   - "Make the ball move faster when it hits a paddle"
-   - "Add particle effects when the ball hits something"
-   - "Create a power-up system"
-   - "Deploy the game to itch.io"
+- **MovementSystem**: Handles game object movement and animated UI transitions
+- **CollisionSystem**: AABB collision detection for games and UI boundary management
+- **RenderSystem**: Draws game entities and UI components to the terminal
 
 ## Project Structure
 
 ```
-kenji-ge/
+kenji-engine/
 ├── packages/
-│   ├── core/                    # ECS engine core
-│   │   ├── src/
-│   │   │   ├── ecs/             # Entity, Component, System, World
-│   │   │   ├── rendering/       # Canvas2D renderer
-│   │   │   ├── input/           # Input management
-│   │   │   ├── audio/           # Audio system
-│   │   │   ├── components/      # Built-in components
-│   │   │   ├── systems/         # Built-in systems
-│   │   │   └── utils/           # Utilities
-│   │   └── package.json
-│   ├── pixel-art-generator/     # Asset generation
-│   │   ├── src/
-│   │   │   ├── generators/      # Game-specific generators
-│   │   │   └── PixelArtGenerator.ts
-│   │   └── package.json
-│   ├── mcp-server/             # AI integration
-│   │   ├── src/
-│   │   │   ├── server.ts        # MCP server
-│   │   │   └── GameProjectManager.ts
-│   │   └── package.json
-│   ├── butler-deploy/          # Deployment tools
-│   │   └── src/
-│   └── cli/                    # Command line tool
-│       └── src/
-├── package.json                # Workspace configuration
-├── bunfig.toml                 # Bun configuration
-└── .mcp.json                   # MCP server config
+│   ├── kenji/         # Core TUI engine
+│   ├── tui/           # Rich TUI components and views
+│   ├── cli/           # Command-line interface
+│   └── mcp/           # MCP server integration
+├── examples/
+│   └── pong/          # Example game implementation
+└── test/              # Test suites
 ```
 
-## Game Templates
+## Development Roadmap
 
-### Empty Template
+### Phase 1: Foundation ✅
+- [x] Core application loop implementation
+- [x] Terminal rendering system
+- [x] ECS architecture for UI components
+- [x] Basic input system
 
-Basic game setup with engine initialization.
+### Phase 2: Game Example ✅
+- [x] Pong game as proof of concept
+- [x] Game entity management and physics
+- [x] Real-time rendering and player controls
+- [x] Performance optimization for smooth gameplay
 
-### Pong Template
+### Phase 3: CLI & Menu System ✅
+- [x] CLI command interface (`kenji`)
+- [x] Project creation and management
+- [x] Interactive menu system
+- [x] Configuration management
+- [x] ASCII branding and UI elements
 
-Classic Pong game with:
+### Phase 4: Rich TUI Components (In Progress)
+- [x] OpenTUI integration foundation
+- [x] React-based TUI components
+- [ ] Advanced form components
+- [ ] Navigation and routing systems
+- [ ] Data visualization components
 
-- Two paddles
-- Ball with physics
-- Generated pixel art assets
+### Phase 5: MCP Integration (In Progress)
+- [x] MCP server setup
+- [x] Tool definitions for AI assistance
+- [ ] Full AI-driven game and application development
 
-### Breakout Template (Coming Soon)
+### Phase 6: More Examples
+- [ ] **Games**: Breakout, Snake, Tetris, RPG systems
+- [ ] **Applications**: File manager, code editor, database browser
+- [ ] **Tools**: System monitoring dashboard, log viewer, task manager
 
-Breakout game with:
+## TUI Architecture Notes
 
-- Paddle and ball
-- Destructible bricks
-- Power-ups
+Kenji leverages **OpenTUI** and **React** for building rich terminal applications. The architecture supports:
 
-## API Reference
+- `@opentui/core` - Terminal rendering and component system
+- `@opentui/react` - React integration for reactive TUI components
+- Component-based architecture with JSX
+- Event-driven interactions and state management
+- Responsive terminal layouts and theming
 
-### Core Classes
+### What You Can Build
 
-#### GameEngine
+**Games:**
+- Action games with physics and collision detection
+- Puzzle games with interactive mechanics  
+- RPGs with turn-based or real-time combat
+- Classic arcade games (Pong, Breakout, Snake, Tetris)
 
-```typescript
-const engine = new GameEngine({
-  canvas: HTMLCanvasElement,
-  mode: "2d" | "3d",
-  targetFPS: number,
-  debug: boolean,
-});
-
-await engine.initialize();
-engine.start();
-```
-
-#### Entity
-
-```typescript
-const entity = new Entity()
-  .addComponent(new Transform2D(x, y))
-  .addComponent(new Velocity2D(vx, vy))
-  .addComponent(new Sprite2D(texture));
-
-engine.world.addEntity(entity);
-```
-
-#### PixelArtGenerator
-
-```typescript
-const generator = new PixelArtGenerator();
-const sprite = await generator.generateSprite({
-  type: "paddle",
-  width: 32,
-  height: 8,
-  colors: ["#FFFFFF"],
-  style: "retro",
-});
-```
-
-## Development
-
-### Building
-
-```bash
-bun run build          # Build all packages
-bun run dev            # Watch mode for development
-bun run clean          # Clean build artifacts
-```
-
-### Testing
-
-```bash
-bun test               # Run tests
-```
-
-### MCP Server
-
-```bash
-bun run mcp            # Start MCP server for AI integration
-```
-
-## Deployment
-
-### Build for Web
-
-```bash
-kenji-ge build my-game --target web
-```
-
-### Deploy to Itch.io
-
-```bash
-kenji-ge deploy my-game --itch-user username --itch-game game-slug
-```
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
-
-## License
-
-MIT License - see LICENSE file for details.
-
-## Roadmap
-
-### Phase 1 (Current)
-
-- ✅ Core ECS engine
-- ✅ 2D rendering with Canvas2D
-- ✅ Pixel art generation
-- ✅ MCP server integration
-- ✅ CLI tool
-- ✅ Pong template
-
-### Phase 2 - Enhanced AI Features
-
-- [ ] Advanced AI code generation (complete game systems)
-- [ ] AI-powered debugging and optimization
-- [ ] Natural language asset modification
-- [ ] AI-generated sound effects and music
-- [ ] Breakout and Platformer templates
-- [ ] Community AI model integration
-
-### Phase 3 - Advanced Engine Features
-
-- [ ] 3D rendering with Three.js + AI assistance
-- [ ] Multiplayer networking with AI matchmaking
-- [ ] Visual editor with AI suggestions
-- [ ] Performance optimization with AI analysis
-- [ ] Cross-platform deployment (mobile, desktop)
-- [ ] AI-powered game balancing and testing
-
-## 🌟 The Kenji Ecosystem
-
-**Kenji** is part of the larger Kuuzuki AI development ecosystem:
-
-- **[Kuuzuki](https://kuuzuki.com)** - AI assistant for development
-- **[Kenji](https://github.com/moikas-code/kenji-ge)** - AI-native game engine
-- **MCP Integration** - Seamless AI-assisted development
-- **Community Templates** - AI-generated game templates and assets
-
-### **Why Choose Kenji?**
-
-| Traditional Engines  | Kenji Game Engine          |
-| -------------------- | -------------------------- |
-| Manual coding        | AI-assisted development    |
-| External asset tools | Built-in AI generation     |
-| Complex setup        | Zero configuration         |
-| Steep learning curve | Natural language interface |
-| Manual deployment    | One-command publishing     |
-
-## Support & Community
-
-- 📖 [Documentation](https://kuuzuki.com/docs/kenji)
-- 💬 [Discord Community](https://discord.gg/kuuzuki)
-- 🐛 [Issue Tracker](https://github.com/moikas-code/kenji-ge/issues)
-- 📧 [Email Support](mailto:support@kuuzuki.com)
-- 🎮 [Live Demo](https://kenji-demo.kuuzuki.com) - Play Pong built with Kenji!
+**Applications:**
+- Interactive forms with validation and complex inputs
+- Data dashboards with real-time visualization
+- File managers and system navigation tools
+- Development tools (code editors, database browsers)
+- Monitoring dashboards and log viewers
 
 ---
 
-**🎮 Built with ❤️ by the Kuuzuki team**  
-_Kenji: Where AI meets game development_
+*"Kenji bridges the gap between game engines and application frameworks, offering the performance of native terminal interfaces with the creative freedom to build both entertaining games and powerful productivity tools."*
