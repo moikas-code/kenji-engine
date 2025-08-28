@@ -1,6 +1,6 @@
 export {
   ViewRouterProvider,
-  ViewOutlet,
+  ViewRenderer,
   useViewRouter,
   type ViewRoute,
 } from "./ViewRouter";

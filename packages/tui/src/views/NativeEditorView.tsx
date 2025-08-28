@@ -1,8 +1,9 @@
-import { useState, useEffect, memo } from "react";
+import { useState, useEffect, memo, useCallback } from "react";
 import { useKeyboard } from "@opentui/react";
 import { EditorBuffer } from "../components/editor/EditorBuffer";
 import { CursorManager } from "../components/editor/CursorManager";
 import { themeColors } from "../shared/colors";
+import { useKeybinds } from "../keybinds";
 
 interface NativeEditorViewProps {
   filePath: string;

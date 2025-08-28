@@ -1,0 +1,340 @@
+{
+  "version": "1.0.0",
+  "preset": "default",
+  "keybinds": {
+    "global": [
+      {
+        "id": "quit",
+        "key": "q",
+        "modifiers": ["ctrl"],
+        "contexts": ["global"],
+        "action": "app:quit",
+        "description": "Quit application",
+        "category": "Application"
+      },
+      {
+        "id": "help",
+        "key": "?",
+        "contexts": ["global"],
+        "action": "app:help",
+        "description": "Show help overlay",
+        "category": "Application"
+      },
+      {
+        "id": "debug",
+        "key": "`",
+        "contexts": ["global"],
+        "action": "app:toggleDebug",
+        "description": "Toggle debug console",
+        "category": "Development"
+      }
+    ],
+    "navigation": [
+      {
+        "id": "nav.home",
+        "key": "h",
+        "modifiers": ["alt"],
+        "contexts": ["navigation"],
+        "action": "navigate:home",
+        "description": "Go to Home",
+        "category": "Navigation"
+      },
+      {
+        "id": "nav.create",
+        "key": "n",
+        "modifiers": ["alt"],
+        "contexts": ["navigation"],
+        "action": "navigate:create",
+        "description": "Create new project",
+        "category": "Navigation"
+      },
+      {
+        "id": "nav.load",
+        "key": "o",
+        "modifiers": ["alt"],
+        "contexts": ["navigation"],
+        "action": "navigate:load",
+        "description": "Open project",
+        "category": "Navigation"
+      },
+      {
+        "id": "nav.export",
+        "key": "e",
+        "modifiers": ["alt"],
+        "contexts": ["navigation"],
+        "action": "navigate:export",
+        "description": "Export project",
+        "category": "Navigation"
+      }
+    ],
+    "views": {
+      "home": [
+        {
+          "id": "home.create",
+          "key": "c",
+          "contexts": ["home"],
+          "action": "navigate:create",
+          "description": "Create new project",
+          "category": "Navigation"
+        },
+        {
+          "id": "home.load",
+          "key": "l",
+          "contexts": ["home"],
+          "action": "navigate:load",
+          "description": "Load existing project",
+          "category": "Navigation"
+        },
+
+        {
+          "id": "home.export",
+          "key": "e",
+          "contexts": ["home"],
+          "action": "navigate:export",
+          "description": "Export project",
+          "category": "Navigation"
+        }
+      ],
+      "load": [
+        {
+          "id": "load.up",
+          "key": "up",
+          "contexts": ["load"],
+          "action": "list:moveUp",
+          "description": "Move selection up",
+          "category": "Navigation"
+        },
+        {
+          "id": "load.down",
+          "key": "down",
+          "contexts": ["load"],
+          "action": "list:moveDown",
+          "description": "Move selection down",
+          "category": "Navigation"
+        },
+        {
+          "id": "load.parent",
+          "key": "left",
+          "contexts": ["load"],
+          "action": "directory:navigateUp",
+          "description": "Go to parent directory",
+          "category": "Navigation"
+        },
+        {
+          "id": "load.enter",
+          "key": "right",
+          "contexts": ["load"],
+          "action": "directory:navigateInto",
+          "description": "Enter selected directory",
+          "category": "Navigation"
+        },
+        {
+          "id": "load.backspace",
+          "key": "backspace",
+          "contexts": ["load"],
+          "action": "directory:navigateUp",
+          "description": "Go to parent directory",
+          "category": "Navigation"
+        },
+        {
+          "id": "load.select",
+          "key": "return",
+          "contexts": ["load"],
+          "action": "item:select",
+          "description": "Select current item",
+          "category": "Actions"
+        },
+        {
+          "id": "load.refresh",
+          "key": "r",
+          "contexts": ["load"],
+          "action": "directory:refresh",
+          "description": "Refresh directory listing",
+          "category": "Actions"
+        },
+        {
+          "id": "load.back",
+          "key": "escape",
+          "contexts": ["load"],
+          "action": "navigate:back",
+          "description": "Go back to previous view",
+          "category": "Navigation"
+        },
+        {
+          "id": "load.quickLoad",
+          "key": "e",
+          "modifiers": ["ctrl"],
+          "contexts": ["load"],
+          "action": "item:select",
+          "description": "Quick load project",
+          "category": "Actions"
+        }
+      ],
+      "editor": [
+        {
+          "id": "editor.save",
+          "key": "s",
+          "modifiers": ["ctrl"],
+          "contexts": ["editor"],
+          "action": "file:save",
+          "description": "Save file",
+          "category": "File"
+        },
+        {
+          "id": "editor.saveAs",
+          "key": "s",
+          "modifiers": ["ctrl", "shift"],
+          "contexts": ["editor"],
+          "action": "file:saveAs",
+          "description": "Save file as",
+          "category": "File"
+        },
+        {
+          "id": "editor.undo",
+          "key": "z",
+          "modifiers": ["ctrl"],
+          "contexts": ["editor"],
+          "action": "edit:undo",
+          "description": "Undo last change",
+          "category": "Edit"
+        },
+        {
+          "id": "editor.redo",
+          "key": "z",
+          "modifiers": ["ctrl", "shift"],
+          "contexts": ["editor"],
+          "action": "edit:redo",
+          "description": "Redo last change",
+          "category": "Edit"
+        },
+        {
+          "id": "editor.find",
+          "key": "f",
+          "modifiers": ["ctrl"],
+          "contexts": ["editor"],
+          "action": "edit:find",
+          "description": "Find in file",
+          "category": "Edit"
+        },
+        {
+          "id": "editor.replace",
+          "key": "h",
+          "modifiers": ["ctrl"],
+          "contexts": ["editor"],
+          "action": "edit:replace",
+          "description": "Find and replace",
+          "category": "Edit"
+        }
+      ],
+      "settings": [
+        {
+          "id": "settings.save",
+          "key": "s",
+          "modifiers": ["ctrl"],
+          "contexts": ["settings"],
+          "action": "settings:save",
+          "description": "Save settings",
+          "category": "Settings"
+        },
+        {
+          "id": "settings.reset",
+          "key": "r",
+          "modifiers": ["ctrl", "shift"],
+          "contexts": ["settings"],
+          "action": "settings:reset",
+          "description": "Reset to defaults",
+          "category": "Settings"
+        },
+        {
+          "id": "settings.back",
+          "key": "escape",
+          "contexts": ["settings"],
+          "action": "navigate:back",
+          "description": "Go back",
+          "category": "Navigation"
+        }
+      ],
+      "create": [
+        {
+          "id": "create.submit",
+          "key": "return",
+          "modifiers": ["ctrl"],
+          "contexts": ["create"],
+          "action": "form:submit",
+          "description": "Create project",
+          "category": "Form"
+        },
+        {
+          "id": "create.cancel",
+          "key": "escape",
+          "contexts": ["create"],
+          "action": "form:cancel",
+          "description": "Cancel creation",
+          "category": "Form"
+        },
+        {
+          "id": "create.nextField",
+          "key": "tab",
+          "contexts": ["create"],
+          "action": "form:nextField",
+          "description": "Next field",
+          "category": "Form"
+        },
+        {
+          "id": "create.prevField",
+          "key": "tab",
+          "modifiers": ["shift"],
+          "contexts": ["create"],
+          "action": "form:prevField",
+          "description": "Previous field",
+          "category": "Form"
+        }
+      ],
+      "game": [
+        {
+          "id": "game.pause",
+          "key": "p",
+          "contexts": ["game"],
+          "action": "game:togglePause",
+          "description": "Pause/Resume game",
+          "category": "Game"
+        },
+        {
+          "id": "game.restart",
+          "key": "r",
+          "contexts": ["game"],
+          "action": "game:restart",
+          "description": "Restart game",
+          "category": "Game"
+        },
+        {
+          "id": "game.exit",
+          "key": "escape",
+          "contexts": ["game"],
+          "action": "game:exit",
+          "description": "Exit to menu",
+          "category": "Game"
+        }
+      ]
+    },
+    "modals": [
+      {
+        "id": "modal.confirm",
+        "key": "return",
+        "contexts": ["modal"],
+        "action": "modal:confirm",
+        "description": "Confirm action",
+        "category": "Modal"
+      },
+      {
+        "id": "modal.cancel",
+        "key": "escape",
+        "contexts": ["modal"],
+        "action": "modal:cancel",
+        "description": "Cancel action",
+        "category": "Modal"
+      }
+    ]
+  },
+  "userOverrides": []
+}

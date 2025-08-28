@@ -1,6 +1,6 @@
 import { useEffect, useCallback, useState, memo } from "react";
-import { useKeyboard } from "@opentui/react";
 import { useViewRouter } from "../provider/ViewRouter";
+import { useKeybinds } from "../keybinds/hooks/useKeybind";
 
 export interface NavigationItem {
   id: string;
@@ -34,31 +34,6 @@ export const NavigationManager = memo(
   }: NavigationManagerProps) => {
     const router = useViewRouter();
     const [breadcrumbs, setBreadcrumbs] = useState<BreadcrumbItem[]>([]);
-    const [shortcuts, setShortcuts] = useState<Map<string, NavigationItem>>(
-      new Map(),
-    );
-
-    useEffect(() => {
-      const shortcutMap = new Map<string, NavigationItem>();
-
-      const processItems = (navItems: NavigationItem[]) => {
-        navItems.forEach((item) => {
-          if (
-            item.shortcut &&
-            item.enabled !== false &&
-            item.visible !== false
-          ) {
-            shortcutMap.set(item.shortcut, item);
-          }
-          if (item.children) {
-            processItems(item.children);
-          }
-        });
-      };
-
-      processItems(items);
-      setShortcuts(shortcutMap);
-    }, [items]);
 
     useEffect(() => {
       const currentRoute = router.getCurrentRoute();
@@ -97,25 +72,22 @@ export const NavigationManager = memo(
       [router, onNavigate],
     );
 
-    useKeyboard((key) => {
-      if (showShortcuts) {
-        // Only process navigation shortcuts for plain key presses (no modifiers)
-        const isPlainKeyPress = !key.ctrl && !key.shift && !key.meta;
-        
-        // Don't process shortcuts on routes that have forms or custom keyboard handling
-        const currentRoute = router.getCurrentRoute();
-        const routesWithCustomKeyboard = ['create', 'settings', 'load', 'game'];
-        const isOnCustomKeyboardRoute = currentRoute && routesWithCustomKeyboard.includes(currentRoute.id);
-        
-        if (isPlainKeyPress && !isOnCustomKeyboardRoute) {
-          const item = shortcuts.get(key.name);
-          
-          if (item) {
-            handleNavigation(item);
-          }
+    // Set up keybind handlers for navigation
+    const keybindHandlers = useCallback(() => {
+      const handlers: Record<string, () => void> = {};
+      
+      // Create handlers for each navigation item
+      items.forEach((item) => {
+        if (item.enabled !== false && item.visible !== false) {
+          handlers[`navigate:${item.route}`] = () => handleNavigation(item);
         }
-      }
-    });
+      });
+      
+      return handlers;
+    }, [items, handleNavigation]);
+
+    // Register keybind handlers with the navigation context
+    useKeybinds(keybindHandlers(), { context: 'navigation' });
 
     return null;
   },

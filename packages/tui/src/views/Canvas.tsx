@@ -1,4 +1,11 @@
-import { useState, useEffect, useRef, useCallback, memo, createElement } from "react";
+import {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  memo,
+  createElement,
+} from "react";
 import { useKeyboard } from "@opentui/react";
 import { themeColors } from "../shared/colors";
 import { useViewRouter } from "../provider/ViewRouter";
@@ -23,7 +30,8 @@ interface ProjectInfo {
 const Canvas = (props: CanvasProps) => {
   const router = useViewRouter();
   const projectManager = useProjectManager();
-  const { width: terminalWidth, height:terminalHeight } = useTerminalDimensionsContext();
+  const { width: terminalWidth, height: terminalHeight } =
+    useTerminalDimensionsContext();
   const fileWatcherRef = useRef<any>(null);
 
   const [projectInfo, setProjectInfo] = useState<ProjectInfo>({
@@ -42,19 +50,25 @@ const Canvas = (props: CanvasProps) => {
     const project = projectManager.getCurrentProject();
     const projectPath = projectManager.getProjectPath();
 
-    console.log("Debug - Canvas loading component:", { project: project?.name, projectPath });
+    console.log("Debug - Canvas loading component:", {
+      project: project?.name,
+      projectPath,
+    });
 
     if (!project || !projectPath) {
       setStatusMessage("❌ No project loaded - check Load view first");
-      console.log("Debug - No project or path found:", { hasProject: !!project, hasPath: !!projectPath });
+      console.log("Debug - No project or path found:", {
+        hasProject: !!project,
+        hasPath: !!projectPath,
+      });
       return;
     }
 
     try {
       setStatusMessage("🔄 Loading project component...");
-      
+
       const appPath = join(projectPath, "src", "App.tsx");
-      
+
       if (!existsSync(appPath)) {
         setStatusMessage("❌ App.tsx not found in project");
         return;
@@ -62,7 +76,7 @@ const Canvas = (props: CanvasProps) => {
 
       // Clear module cache to enable hot reload
       delete require.cache[require.resolve(appPath)];
-      
+
       // Import the project's App component dynamically with cache busting
       const cacheBuster = `?t=${Date.now()}`;
       const appModule = await import(appPath + cacheBuster);
@@ -78,22 +92,34 @@ const Canvas = (props: CanvasProps) => {
 
       setStatusMessage("✅ Project component loaded successfully");
     } catch (error) {
-      setStatusMessage(
-        `❌ Failed to load component: ${
-          error instanceof Error ? error.message : "Unknown error"
-        }`
-      );
+      let errorMessage = "Unknown error";
+      if (error instanceof Error) {
+        errorMessage = error.message;
+        // Check for common import errors
+        if (errorMessage.includes("useTerminalDimensions")) {
+          errorMessage =
+            "Project uses incompatible hooks. Update App.tsx to accept width/height props instead of using useTerminalDimensions hook.";
+        }
+      }
+      setStatusMessage(`❌ Failed to load component: ${errorMessage}`);
       console.error("Component load error:", error);
+
+      // Log helpful information
+      console.log(
+        "Tip: Projects should accept width/height as props, not use useTerminalDimensions hook.",
+      );
+      console.log("Example App.tsx structure:");
+      console.log("const App = ({ width = 80, height = 24 }) => { ... }");
     }
   }, [projectManager]);
 
   // Reload the project component (hot reload)
   const reloadProject = useCallback(async () => {
     setStatusMessage("🔄 Reloading project...");
-    
+
     // Force component remount by changing key
-    setComponentKey(prev => prev + 1);
-    
+    setComponentKey((prev) => prev + 1);
+
     // Reload the component
     await loadProjectComponent();
   }, [loadProjectComponent]);
@@ -106,13 +132,23 @@ const Canvas = (props: CanvasProps) => {
     const srcPath = join(projectPath, "src");
 
     try {
-      fileWatcherRef.current = watch(srcPath, { recursive: true }, (_, filename) => {
-        if (filename && (filename.endsWith(".ts") || filename.endsWith(".tsx") || filename.endsWith(".js") || filename.endsWith(".jsx"))) {
-          setStatusMessage(`🔄 File changed: ${filename} - Hot reloading...`);
-          // Actually reload the component
-          reloadProject();
-        }
-      });
+      fileWatcherRef.current = watch(
+        srcPath,
+        { recursive: true },
+        (_, filename) => {
+          if (
+            filename &&
+            (filename.endsWith(".ts") ||
+              filename.endsWith(".tsx") ||
+              filename.endsWith(".js") ||
+              filename.endsWith(".jsx"))
+          ) {
+            setStatusMessage(`🔄 File changed: ${filename} - Hot reloading...`);
+            // Actually reload the component
+            reloadProject();
+          }
+        },
+      );
     } catch (error) {
       console.warn("File watching not available:", error);
     }
@@ -155,45 +191,32 @@ const Canvas = (props: CanvasProps) => {
   return (
     <group
       style={{
-        position:'relative',
+        position: "relative",
         flexDirection: "column",
         height: terminalHeight,
-        width:terminalWidth,
+        width: terminalWidth,
       }}
     >
-      
-              {/* Header */}
+      {/* Header */}
       <group
         style={{
-          flexDirection: "column",
-          padding: 1,
+          // flexDirection: "column",
+          position: "relative",
         }}
       >
         <text
           style={{
-            fg: themeColors.hex.accent,
+            position: "absolute",
+            top: 0,
+            // fg: themeColors.hex.accent,
           }}
         >
-          ┌─ 🎨 Canvas ─ {projectInfo.projectName} ─────────────────┐
-        </text>
-        <text
-          style={{
-            fg: themeColors.hex.muted,
-          }}
-        >
-          │ {projectInfo.loaded ? "✅ Loaded" : "⏸️ Loading"} • Hot Reload: Enabled │
-        </text>
-        <text
-          style={{
-            fg: "#666666",
-          }}
-        >
-          └──────────────────────────────────────────────────────────────┘
+          {projectInfo.projectName}
         </text>
       </group>
 
       {/* Status Message */}
-      {statusMessage && (
+      {/*{statusMessage && (
         <group
           style={{
             flexDirection: "row",
@@ -218,14 +241,12 @@ const Canvas = (props: CanvasProps) => {
             {statusMessage}
           </text>
         </group>
-      )}
-
+      )}*/}
 
       {/* Main Game Canvas Area */}
       <group
         style={{
           flexDirection: "row",
-          padding: 1,
         }}
       >
         {/* Live Project Component */}
@@ -234,7 +255,6 @@ const Canvas = (props: CanvasProps) => {
           style={{
             width: showStats ? 85 : terminalWidth - 2,
             borderColor: themeColors.hex.accent,
-            padding: 1,
           }}
         >
           <group
@@ -251,8 +271,12 @@ const Canvas = (props: CanvasProps) => {
                   height: "100%",
                 }}
               >
-                {/* Render the actual project component */}
-                {projectInfo.component && createElement(projectInfo.component)}
+                {/* Render the actual project component with dimensions */}
+                {projectInfo.component &&
+                  createElement(projectInfo.component, {
+                    width: terminalWidth,
+                    height: terminalHeight,
+                  })}
               </group>
             ) : (
               <group
@@ -304,7 +328,8 @@ const Canvas = (props: CanvasProps) => {
                 Path: {projectInfo.projectPath ? "Set" : "None"}
               </text>
               <text style={{ fg: "#CCCCCC" }}>
-                Modified: {new Date(projectInfo.lastModified).toLocaleTimeString()}
+                Modified:{" "}
+                {new Date(projectInfo.lastModified).toLocaleTimeString()}
               </text>
               <text
                 style={{
@@ -339,11 +364,10 @@ const Canvas = (props: CanvasProps) => {
       {/* Footer Controls */}
       <group
         style={{
-          position:'absolute',
-          bottom:0,
+          position: "absolute",
+          bottom: 0,
+          left: 1,
           flexDirection: "column",
-          marginTop:1,
-          padding: 1,
         }}
       >
         <text
@@ -354,8 +378,6 @@ const Canvas = (props: CanvasProps) => {
           Ctrl+R Reload • S Toggle Stats • ESC Back
         </text>
       </group>
-
-
     </group>
   );
 };

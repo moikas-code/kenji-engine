@@ -1,0 +1,193 @@
+{
+  "version": "0.0.1",
+  "preset": "emacs",
+  "keybinds": {
+    "global": [
+      {
+        "id": "quit",
+        "key": "x",
+        "modifiers": ["ctrl"],
+        "contexts": ["global"],
+        "action": "quit",
+        "description": "Quit application"
+      },
+      {
+        "id": "help",
+        "key": "h",
+        "modifiers": ["ctrl"],
+        "contexts": ["global"],
+        "action": "showHelp",
+        "description": "Show help"
+      },
+      {
+        "id": "execute",
+        "key": "x",
+        "modifiers": ["alt"],
+        "contexts": ["global"],
+        "action": "openCommandPalette",
+        "description": "Execute command"
+      }
+    ],
+    "views": {
+      "home": [
+        {
+          "id": "create",
+          "key": "n",
+          "modifiers": ["ctrl"],
+          "contexts": ["home"],
+          "action": "navigate:create",
+          "description": "New project"
+        },
+        {
+          "id": "load",
+          "key": "o",
+          "modifiers": ["ctrl"],
+          "contexts": ["home"],
+          "action": "navigate:load",
+          "description": "Open project"
+        }
+      ],
+      "load": [
+        {
+          "id": "up",
+          "key": "p",
+          "modifiers": ["ctrl"],
+          "contexts": ["load"],
+          "action": "navigate:up",
+          "description": "Previous item"
+        },
+        {
+          "id": "down",
+          "key": "n",
+          "modifiers": ["ctrl"],
+          "contexts": ["load"],
+          "action": "navigate:down",
+          "description": "Next item"
+        },
+        {
+          "id": "left",
+          "key": "b",
+          "modifiers": ["ctrl"],
+          "contexts": ["load"],
+          "action": "navigate:parent",
+          "description": "Go back"
+        },
+        {
+          "id": "right",
+          "key": "f",
+          "modifiers": ["ctrl"],
+          "contexts": ["load"],
+          "action": "navigate:enter",
+          "description": "Go forward"
+        },
+        {
+          "id": "select",
+          "key": "return",
+          "contexts": ["load"],
+          "action": "select",
+          "description": "Select item"
+        },
+        {
+          "id": "refresh",
+          "key": "l",
+          "modifiers": ["ctrl"],
+          "contexts": ["load"],
+          "action": "refresh",
+          "description": "Refresh"
+        },
+        {
+          "id": "back",
+          "key": "g",
+          "modifiers": ["ctrl"],
+          "contexts": ["load"],
+          "action": "navigate:back",
+          "description": "Cancel"
+        },
+        {
+          "id": "top",
+          "key": "<",
+          "modifiers": ["alt", "shift"],
+          "contexts": ["load"],
+          "action": "navigate:top",
+          "description": "Beginning of list"
+        },
+        {
+          "id": "bottom",
+          "key": ">",
+          "modifiers": ["alt", "shift"],
+          "contexts": ["load"],
+          "action": "navigate:bottom",
+          "description": "End of list"
+        }
+      ],
+      "editor": [
+        {
+          "id": "save",
+          "key": "s",
+          "modifiers": ["ctrl"],
+          "contexts": ["editor"],
+          "action": "save",
+          "description": "Save file"
+        },
+        {
+          "id": "saveAs",
+          "key": "s",
+          "modifiers": ["ctrl", "shift"],
+          "contexts": ["editor"],
+          "action": "saveAs",
+          "description": "Save as"
+        },
+        {
+          "id": "undo",
+          "key": "_",
+          "modifiers": ["ctrl"],
+          "contexts": ["editor"],
+          "action": "undo",
+          "description": "Undo"
+        },
+        {
+          "id": "redo",
+          "key": "_",
+          "modifiers": ["alt"],
+          "contexts": ["editor"],
+          "action": "redo",
+          "description": "Redo"
+        },
+        {
+          "id": "cut",
+          "key": "w",
+          "modifiers": ["ctrl"],
+          "contexts": ["editor"],
+          "action": "cut",
+          "description": "Cut"
+        },
+        {
+          "id": "copy",
+          "key": "w",
+          "modifiers": ["alt"],
+          "contexts": ["editor"],
+          "action": "copy",
+          "description": "Copy"
+        },
+        {
+          "id": "paste",
+          "key": "y",
+          "modifiers": ["ctrl"],
+          "contexts": ["editor"],
+          "action": "paste",
+          "description": "Paste"
+        },
+        {
+          "id": "selectAll",
+          "key": "h",
+          "modifiers": ["ctrl", "shift"],
+          "contexts": ["editor"],
+          "action": "selectAll",
+          "description": "Select all"
+        }
+      ]
+    },
+    "modals": []
+  },
+  "userOverrides": []
+}

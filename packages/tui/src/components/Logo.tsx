@@ -4,7 +4,7 @@ import { themeColors } from "../shared/colors";
 
 const Logo = () => {
   const titleText = "KENJI";
-  const titleFont = "block" as const;
+  const titleFont = "tiny" as const;
   const { width, height } = measureText({
     text: titleText,
     font: titleFont,

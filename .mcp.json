@@ -39,10 +39,6 @@
     "context-chunker": {
       "command": "npx",
       "args": ["-y", "@modelcontextprotocol/server-context-chunker"]
-    },
-    "context7": {
-      "type": "remote",
-      "url": "https://mcp.context7.com/sse"
     }
   }
 }

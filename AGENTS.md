@@ -32,3 +32,7 @@
 - [ReatJS Documentation](https://react.dev/reference/react)
 - [OpenTUI Repository](https://github.com/sst/opentui)
 - [OpenTUI React Documentation](https://github.com/sst/opentui/blob/main/packages/react/README.md)
+
+## MCP Servers
+- kb_mcp
+- context7

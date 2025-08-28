@@ -1,0 +1,173 @@
+{
+  "version": "0.0.1",
+  "preset": "vim",
+  "keybinds": {
+    "global": [
+      {
+        "id": "quit",
+        "key": "q",
+        "modifiers": [],
+        "contexts": ["global"],
+        "action": "quit",
+        "description": "Quit application",
+        "mode": "normal"
+      },
+      {
+        "id": "help",
+        "key": "?",
+        "contexts": ["global"],
+        "action": "showHelp",
+        "description": "Show help"
+      },
+      {
+        "id": "command",
+        "key": ":",
+        "contexts": ["global"],
+        "action": "openCommandPalette",
+        "description": "Open command palette"
+      }
+    ],
+    "views": {
+      "home": [
+        {
+          "id": "create",
+          "key": "c",
+          "contexts": ["home"],
+          "action": "navigate:create",
+          "description": "Create new project"
+        },
+        {
+          "id": "load",
+          "key": "o",
+          "contexts": ["home"],
+          "action": "navigate:load",
+          "description": "Open existing project"
+        }
+      ],
+      "load": [
+        {
+          "id": "up",
+          "key": "k",
+          "contexts": ["load"],
+          "action": "navigate:up",
+          "description": "Move up"
+        },
+        {
+          "id": "down",
+          "key": "j",
+          "contexts": ["load"],
+          "action": "navigate:down",
+          "description": "Move down"
+        },
+        {
+          "id": "left",
+          "key": "h",
+          "contexts": ["load"],
+          "action": "navigate:parent",
+          "description": "Go to parent directory"
+        },
+        {
+          "id": "right",
+          "key": "l",
+          "contexts": ["load"],
+          "action": "navigate:enter",
+          "description": "Enter directory"
+        },
+        {
+          "id": "select",
+          "key": "return",
+          "contexts": ["load"],
+          "action": "select",
+          "description": "Select item"
+        },
+        {
+          "id": "refresh",
+          "key": "r",
+          "contexts": ["load"],
+          "action": "refresh",
+          "description": "Refresh directory"
+        },
+        {
+          "id": "back",
+          "key": "escape",
+          "contexts": ["load"],
+          "action": "navigate:back",
+          "description": "Go back"
+        },
+        {
+          "id": "top",
+          "key": "g",
+          "modifiers": [],
+          "sequence": "gg",
+          "contexts": ["load"],
+          "action": "navigate:top",
+          "description": "Go to top"
+        },
+        {
+          "id": "bottom",
+          "key": "g",
+          "modifiers": ["shift"],
+          "contexts": ["load"],
+          "action": "navigate:bottom",
+          "description": "Go to bottom"
+        }
+      ],
+      "editor": [
+        {
+          "id": "save",
+          "key": "w",
+          "command": ":w",
+          "contexts": ["editor"],
+          "action": "save",
+          "description": "Save file"
+        },
+        {
+          "id": "saveAndQuit",
+          "key": "x",
+          "command": ":x",
+          "contexts": ["editor"],
+          "action": "saveAndQuit",
+          "description": "Save and quit"
+        },
+        {
+          "id": "undo",
+          "key": "u",
+          "contexts": ["editor"],
+          "action": "undo",
+          "description": "Undo"
+        },
+        {
+          "id": "redo",
+          "key": "r",
+          "modifiers": ["ctrl"],
+          "contexts": ["editor"],
+          "action": "redo",
+          "description": "Redo"
+        },
+        {
+          "id": "insertMode",
+          "key": "i",
+          "contexts": ["editor"],
+          "action": "mode:insert",
+          "description": "Enter insert mode"
+        },
+        {
+          "id": "visualMode",
+          "key": "v",
+          "contexts": ["editor"],
+          "action": "mode:visual",
+          "description": "Enter visual mode"
+        },
+        {
+          "id": "normalMode",
+          "key": "escape",
+          "contexts": ["editor"],
+          "action": "mode:normal",
+          "description": "Enter normal mode"
+        }
+      ]
+    },
+    "modals": []
+  },
+  "userOverrides": []
+}

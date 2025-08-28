@@ -48,7 +48,7 @@
     "@babel/preset-typescript": "^7.27.1",
     "@modelcontextprotocol/sdk": "^1.17.4",
     "@opentui/core": "latest",
-    "@opentui/react": "^0.1.11",
+    "@opentui/react": "latest",
     "bitecs": "^0.3.40",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",

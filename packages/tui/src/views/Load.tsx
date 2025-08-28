@@ -1,19 +1,20 @@
 import { useState, useEffect, useCallback, memo } from "react";
-import { useKeyboard } from "@opentui/react";
 import { homedir } from "os";
 import { join } from "path";
 import { existsSync, readdirSync } from "fs";
 import { themeColors } from "../shared/colors";
 import { useViewRouter } from "../provider/ViewRouter";
 import { useProjectManager } from "../provider";
-
+import { useKeybinds } from "../keybinds";
+import Header from "../components/Header";
 interface LoadProjectViewProps {
   onBack?: () => void;
 }
 
-interface ProjectInfo {
+interface DirectoryItem {
   name: string;
   path: string;
+  type: "directory" | "project" | "file";
   description?: string;
 }
 
@@ -21,157 +22,221 @@ const LoadProjectView = (props: LoadProjectViewProps) => {
   const router = useViewRouter();
   const projectManager = useProjectManager();
 
-  const [projects, setProjects] = useState<ProjectInfo[]>([]);
+  const [directoryItems, setDirectoryItems] = useState<DirectoryItem[]>([]);
+  const [currentPath, setCurrentPath] = useState(
+    join(homedir(), "kenji-projects"),
+  );
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [statusMessage, setStatusMessage] = useState("");
 
-  // Scan for existing projects
-  const scanProjects = useCallback(async () => {
-    const projectsDir = join(homedir(), "kenji-projects");
-    setStatusMessage("🔄 Scanning for projects...");
+  // Scan directory contents
+  const scanDirectory = useCallback(async () => {
+    setStatusMessage("🔄 Scanning directory...");
 
     try {
-      if (!existsSync(projectsDir)) {
-        setStatusMessage("⚠️ No projects directory found. Create a project first.");
+      if (!existsSync(currentPath)) {
+        setStatusMessage("⚠️ Directory not found.");
         setTimeout(() => setStatusMessage(""), 3000);
         return;
       }
 
-      const items = readdirSync(projectsDir, { withFileTypes: true });
-      const foundProjects: ProjectInfo[] = [];
+      const items = readdirSync(currentPath, { withFileTypes: true });
+      const foundItems: DirectoryItem[] = [];
+
+      // Add parent directory option if not at root
+      if (currentPath !== homedir()) {
+        foundItems.push({
+          name: "..",
+          path: join(currentPath, ".."),
+          type: "directory",
+          description: "Go up one level",
+        });
+      }
 
       for (const item of items) {
+        const itemPath = join(currentPath, item.name);
+
         if (item.isDirectory()) {
-          const projectPath = join(projectsDir, item.name);
-          const configPath = join(projectPath, "kenji.config.json");
+          const configPath = join(itemPath, "kenji.config.json");
 
           if (existsSync(configPath)) {
-            // Try to read and validate the config
+            // This is a Kenji project
             try {
               const configFile = Bun.file(configPath);
               const configText = await configFile.text();
               const config = JSON.parse(configText);
-              
-              // Validate the project before adding it
+
               if (config.name) {
-                foundProjects.push({
-                  name: config.name,
-                  path: projectPath,
+                foundItems.push({
+                  name: item.name,
+                  path: itemPath,
+                  type: "project",
                   description: config.description || "Kenji TUI Project",
                 });
               } else {
-                console.warn(`Invalid project config in ${projectPath}`);
-                foundProjects.push({
+                foundItems.push({
                   name: item.name,
-                  path: projectPath,
+                  path: itemPath,
+                  type: "project",
                   description: "⚠️ Invalid configuration",
                 });
               }
             } catch (error) {
-              console.warn(`Error reading project config in ${projectPath}:`, error);
-              // Still add the project but mark it as having issues
-              foundProjects.push({
+              foundItems.push({
                 name: item.name,
-                path: projectPath,
+                path: itemPath,
+                type: "project",
                 description: "⚠️ Config read error",
               });
             }
+          } else {
+            // Regular directory
+            foundItems.push({
+              name: item.name,
+              path: itemPath,
+              type: "directory",
+            });
           }
+        } else if (item.isFile() && item.name.endsWith(".json")) {
+          // Show config files
+          foundItems.push({
+            name: item.name,
+            path: itemPath,
+            type: "file",
+          });
         }
       }
 
-      setProjects(foundProjects);
+      setDirectoryItems(foundItems);
 
-      if (foundProjects.length === 0) {
-        setStatusMessage("⚠️ No valid projects found in ~/kenji-projects");
+      if (foundItems.length === 0) {
+        setStatusMessage("⚠️ Directory is empty");
         setTimeout(() => setStatusMessage(""), 3000);
       } else {
-        setStatusMessage(`✅ Found ${foundProjects.length} project(s)`);
+        setStatusMessage(`✅ Found ${foundItems.length} item(s)`);
         setTimeout(() => setStatusMessage(""), 2000);
       }
     } catch (error) {
-      setStatusMessage(`⚠️ Could not scan projects: ${error instanceof Error ? error.message : "Unknown error"}`);
+      setStatusMessage(
+        `⚠️ Could not scan directory: ${error instanceof Error ? error.message : "Unknown error"}`,
+      );
       setTimeout(() => setStatusMessage(""), 3000);
     }
-  }, []);
+  }, [currentPath]);
 
-  // Load the selected project
-  const handleLoad = useCallback(async () => {
-    const selectedProject = projects[selectedIndex];
-    if (!selectedProject) {
-      setStatusMessage("⚠️ No project selected");
-      setTimeout(() => setStatusMessage(""), 3000);
-      return;
-    }
-
-    if (selectedProject.description?.startsWith("⚠️")) {
-      setStatusMessage("❌ Cannot load project with configuration errors");
+  // Handle selection of directory item
+  const handleSelect = useCallback(async () => {
+    const selectedItem = directoryItems[selectedIndex];
+    if (!selectedItem) {
+      setStatusMessage("⚠️ No item selected");
       setTimeout(() => setStatusMessage(""), 3000);
       return;
     }
 
-    setIsLoading(true);
-    setStatusMessage(`🔄 Loading "${selectedProject.name}"...`);
+    if (selectedItem.type === "directory") {
+      // Navigate to directory
+      setCurrentPath(selectedItem.path);
+      setSelectedIndex(0);
+      return;
+    }
 
-    try {
-      const config = await projectManager.loadProject(selectedProject.path);
-      
-      if (!config) {
-        throw new Error("Failed to load project configuration");
+    if (selectedItem.type === "project") {
+      // Load project
+      if (selectedItem.description?.startsWith("⚠️")) {
+        setStatusMessage("❌ Cannot load project with configuration errors");
+        setTimeout(() => setStatusMessage(""), 3000);
+        return;
       }
 
-      console.log("Debug - Project loaded successfully:", { 
-        name: config.name, 
-        path: selectedProject.path,
-        currentProject: projectManager.getCurrentProject()?.name 
-      });
+      setIsLoading(true);
+      setStatusMessage(`🔄 Loading "${selectedItem.name}"...`);
 
-      setStatusMessage(
-        `✅ Project "${selectedProject.name}" loaded successfully!`,
-      );
-      
-      // Navigate to Canvas after a short delay
-      setTimeout(() => {
+      try {
+        const config = await projectManager.loadProject(selectedItem.path);
+
+        if (!config) {
+          throw new Error("Failed to load project configuration");
+        }
+
+        setStatusMessage(
+          `✅ Project "${selectedItem.name}" loaded successfully!`,
+        );
+
+        // Navigate to Canvas after a short delay
+        setTimeout(() => {
+          setIsLoading(false);
+          router.navigate("game");
+        }, 1500);
+      } catch (error) {
+        console.error("Project load error:", error);
+        setStatusMessage(
+          `❌ Loading failed: ${error instanceof Error ? error.message : "Unknown error"}`,
+        );
         setIsLoading(false);
-        router.navigate("game");
-      }, 1500);
-    } catch (error) {
-      console.error("Project load error:", error);
-      setStatusMessage(
-        `❌ Loading failed: ${error instanceof Error ? error.message : "Unknown error"}`,
-      );
-      setIsLoading(false);
-      setTimeout(() => setStatusMessage(""), 5000);
+        setTimeout(() => setStatusMessage(""), 5000);
+      }
     }
-  }, [projects, selectedIndex, projectManager, router]);
+  }, [directoryItems, selectedIndex, projectManager, router]);
 
   useEffect(() => {
-    scanProjects();
-  }, [scanProjects]);
+    scanDirectory();
+  }, [scanDirectory]);
 
-  // Keyboard handling
-  useKeyboard((key) => {
-    if (isLoading) return;
+  // Set up keybind handlers using the new system
+  useKeybinds(
+    {
+      "list:moveUp": useCallback(() => {
+        if (directoryItems.length === 0) return;
+        setSelectedIndex((prev) =>
+          prev > 0 ? prev - 1 : directoryItems.length - 1,
+        );
+      }, [directoryItems]),
 
-    if (key.name === "escape") {
-      if (props.onBack) {
-        props.onBack();
-      } else {
-        router.goBack();
-      }
-    } else if (key.name === "e" && key.ctrl) {
-      handleLoad();
-    } else if (key.name === "upArrow") {
-      setSelectedIndex((prev) => (prev > 0 ? prev - 1 : projects.length - 1));
-    } else if (key.name === "downArrow") {
-      setSelectedIndex((prev) => (prev < projects.length - 1 ? prev + 1 : 0));
-    } else if (key.name === "return") {
-      handleLoad();
-    } else if (key.name === "r" && !key.ctrl) {
-      scanProjects();
-    }
-  });
+      "list:moveDown": useCallback(() => {
+        if (directoryItems.length === 0) return;
+        setSelectedIndex((prev) =>
+          prev < directoryItems.length - 1 ? prev + 1 : 0,
+        );
+      }, [directoryItems]),
+
+      "directory:navigateUp": useCallback(() => {
+        const parentPath = join(currentPath, "..");
+        if (parentPath !== currentPath) {
+          setCurrentPath(parentPath);
+          setSelectedIndex(0);
+        }
+      }, [currentPath]),
+
+      "directory:navigateInto": useCallback(() => {
+        const selectedItem = directoryItems[selectedIndex];
+        if (selectedItem && selectedItem.type === "directory") {
+          setCurrentPath(selectedItem.path);
+          setSelectedIndex(0);
+        }
+      }, [directoryItems, selectedIndex]),
+
+      "item:select": useCallback(() => {
+        handleSelect();
+      }, [handleSelect]),
+
+      "directory:refresh": useCallback(() => {
+        scanDirectory();
+      }, [scanDirectory]),
+
+      "navigate:back": useCallback(() => {
+        if (props.onBack) {
+          props.onBack();
+        } else {
+          router.goBack();
+        }
+      }, [props.onBack, router]),
+    },
+    {
+      context: "load",
+      enabled: !isLoading,
+    },
+  );
 
   return (
     <group
@@ -181,35 +246,10 @@ const LoadProjectView = (props: LoadProjectViewProps) => {
       }}
     >
       {/* Header */}
-      <group
-        style={{
-          flexDirection: "column",
-          padding: 1,
-        }}
-      >
-        <text
-          style={{
-            fg: themeColors.hex.accent,
-          }}
-        >
-          ┌─ 📂 Load Project ──────────────────────────────────────┐
-        </text>
-        <text
-          style={{
-            fg: themeColors.hex.muted,
-            marginTop: 0,
-          }}
-        >
-          │ Select a Kenji project to load from ~/kenji-projects │
-        </text>
-        <text
-          style={{
-            fg: "#666666",
-          }}
-        >
-          └───────────────────────────────────────────────────────┘
-        </text>
-      </group>
+      <Header
+        title="Load Project"
+        subtitle="Navigate directories and select a Kenji project to load"
+      />
 
       {/* Main Content */}
       <group
@@ -260,9 +300,9 @@ const LoadProjectView = (props: LoadProjectViewProps) => {
           </group>
         )}
 
-        {/* Projects List */}
+        {/* Directory Contents */}
         <box
-          title="Available Projects"
+          title="Directory Contents"
           style={{
             width: 70,
             height: 8,
@@ -274,9 +314,9 @@ const LoadProjectView = (props: LoadProjectViewProps) => {
               flexDirection: "column",
             }}
           >
-            {projects.map((project, index) => (
+            {directoryItems.map((item, index) => (
               <group
-                key={project.path}
+                key={item.path}
                 style={{
                   flexDirection: "row",
                   alignItems: "center",
@@ -302,27 +342,38 @@ const LoadProjectView = (props: LoadProjectViewProps) => {
                 <text
                   style={{
                     fg: selectedIndex === index ? "#FFFFFF" : "#E0E0E0",
+                    marginRight: 1,
                   }}
                 >
-                  {project.name}
+                  {item.type === "directory"
+                    ? "📁"
+                    : item.type === "project"
+                      ? "🎮"
+                      : "📄"}
                 </text>
-                {project.description &&
-                  project.description !== "No description" && (
-                    <text
-                      style={{
-                        fg:
-                          selectedIndex === index
-                            ? "#CCCCCC"
-                            : themeColors.hex.muted,
-                        marginLeft: 2,
-                      }}
-                    >
-                      • {project.description}
-                    </text>
-                  )}
+                <text
+                  style={{
+                    fg: selectedIndex === index ? "#FFFFFF" : "#E0E0E0",
+                  }}
+                >
+                  {item.name}
+                </text>
+                {item.description && (
+                  <text
+                    style={{
+                      fg:
+                        selectedIndex === index
+                          ? "#CCCCCC"
+                          : themeColors.hex.muted,
+                      marginLeft: 2,
+                    }}
+                  >
+                    • {item.description}
+                  </text>
+                )}
               </group>
             ))}
-            {projects.length === 0 && (
+            {directoryItems.length === 0 && (
               <group
                 style={{
                   flexDirection: "column",
@@ -336,7 +387,7 @@ const LoadProjectView = (props: LoadProjectViewProps) => {
                     fg: themeColors.hex.muted,
                   }}
                 >
-                  📁 No projects found
+                  📁 Directory is empty
                 </text>
                 <text
                   style={{
@@ -344,7 +395,7 @@ const LoadProjectView = (props: LoadProjectViewProps) => {
                     marginTop: 0,
                   }}
                 >
-                  Create your first project to get started
+                  Navigate to a different directory or create a project
                 </text>
               </group>
             )}
@@ -364,7 +415,8 @@ const LoadProjectView = (props: LoadProjectViewProps) => {
             fg: themeColors.hex.muted,
           }}
         >
-          ↑↓ Navigate • Enter/Ctrl+E Load • R Refresh • ESC Cancel
+          ↑↓ Navigate • ←→/Backspace Up Dir • Enter Load/Enter Dir • R Refresh •
+          ESC Cancel
         </text>
       </group>
     </group>

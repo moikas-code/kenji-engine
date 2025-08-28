@@ -5,6 +5,7 @@ import React, {
   createContext,
   useContext,
   ReactNode,
+  useMemo,
 } from "react";
 import { useKeyboard } from "@opentui/react";
 
@@ -25,6 +26,7 @@ interface ViewRouterContextType {
   getCurrentRoute: () => ViewRoute | null;
   currentRoute: ViewRoute | null;
   history: ViewRoute[];
+  setInputFocused: (focused: boolean) => void;
 }
 
 const ViewRouterContext = createContext<ViewRouterContextType | null>(null);
@@ -48,14 +50,23 @@ interface ViewRouterProviderProps {
 export const ViewRouterProvider = ({
   children,
   defaultRoute,
-  routes: initialRoutes = [],
-  enableKeyboardNavigation = true,
+  routes = [],
+  enableKeyboardNavigation = false,
   onRouteChange,
 }: ViewRouterProviderProps) => {
-  const routesMap = new Map(initialRoutes.map((route) => [route.id, route]));
-  const [currentRoute, setCurrentRoute] = useState<ViewRoute | null>(null);
   const [history, setHistory] = useState<ViewRoute[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
+  const [currentRoute, setCurrentRoute] = useState<ViewRoute | null>(null);
+  const [isInputFocused, setIsInputFocused] = useState(false);
+
+  // Create a Map of routes for quick lookup
+  const routesMap = useMemo(() => {
+    const map = new Map<string, ViewRoute>();
+    routes.forEach(route => {
+      map.set(route.id, route);
+    });
+    return map;
+  }, [routes]);
 
   useEffect(() => {
     if (defaultRoute && routesMap.has(defaultRoute) && !currentRoute) {
@@ -64,7 +75,7 @@ export const ViewRouterProvider = ({
       setHistory([route]);
       setHistoryIndex(0);
     }
-  }, [defaultRoute, currentRoute]);
+  }, [defaultRoute, currentRoute, routesMap]);
 
   const navigate = useCallback(
     (routeId: string) => {
@@ -80,7 +91,7 @@ export const ViewRouterProvider = ({
       setCurrentRoute(targetRoute);
       onRouteChange?.(currentRoute, targetRoute);
     },
-    [history, historyIndex, currentRoute, onRouteChange],
+    [history, historyIndex, currentRoute, onRouteChange, routesMap],
   );
 
   const goBack = useCallback(() => {
@@ -110,8 +121,17 @@ export const ViewRouterProvider = ({
 
   const getCurrentRoute = useCallback(() => currentRoute, [currentRoute]);
 
+  const setInputFocused = useCallback((focused: boolean) => {
+    setIsInputFocused(focused);
+  }, []);
+
   if (enableKeyboardNavigation) {
     useKeyboard((key) => {
+      // Don't handle navigation keys if an input is focused
+      if (isInputFocused) {
+        return;
+      }
+      
       if (key.name === "backspace" || (key.name === "left" && key.option)) {
         if (canGoBack()) {
           goBack();
@@ -133,6 +153,7 @@ export const ViewRouterProvider = ({
     getCurrentRoute,
     currentRoute,
     history: history.slice(0, historyIndex + 1),
+    setInputFocused,
   };
 
   return (
@@ -142,16 +163,15 @@ export const ViewRouterProvider = ({
   );
 };
 
-interface ViewOutletProps {
-  fallback?: ReactNode;
+interface ViewRendererProps {
+  currentRoute: ViewRoute | null;
 }
 
-export const ViewOutlet = ({ fallback }: ViewOutletProps) => {
-  const { currentRoute } = useViewRouter();
-
+export const ViewRenderer = ({ currentRoute }: ViewRendererProps) => {
   if (!currentRoute) {
-    return <>{fallback || <text>No route selected</text>}</>;
+    return <text>No route selected</text>;
   }
 
-  return React.createElement(currentRoute.component);
+  const RouteComponent = currentRoute.component;
+  return React.createElement(RouteComponent);
 };
