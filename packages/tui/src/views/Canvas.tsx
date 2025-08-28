@@ -3,6 +3,7 @@ import { useKeyboard } from "@opentui/react";
 import { themeColors } from "../shared/colors";
 import { useViewRouter } from "../provider/ViewRouter";
 import { useProjectManager } from "../provider";
+import { useTerminalDimensionsContext } from "../provider";
 import { watch } from "fs";
 import { join } from "path";
 import { existsSync } from "fs";
@@ -22,6 +23,7 @@ interface ProjectInfo {
 const Canvas = (props: CanvasProps) => {
   const router = useViewRouter();
   const projectManager = useProjectManager();
+  const { width: terminalWidth, height:terminalHeight } = useTerminalDimensionsContext();
   const fileWatcherRef = useRef<any>(null);
 
   const [projectInfo, setProjectInfo] = useState<ProjectInfo>({
@@ -32,7 +34,7 @@ const Canvas = (props: CanvasProps) => {
     lastModified: 0,
   });
   const [statusMessage, setStatusMessage] = useState("");
-  const [showStats, setShowStats] = useState(true);
+  const [showStats, setShowStats] = useState(false);
   const [componentKey, setComponentKey] = useState(0);
 
   // Load the project's App component directly
@@ -58,8 +60,12 @@ const Canvas = (props: CanvasProps) => {
         return;
       }
 
-      // Import the project's App component dynamically
-      const appModule = await import(appPath);
+      // Clear module cache to enable hot reload
+      delete require.cache[require.resolve(appPath)];
+      
+      // Import the project's App component dynamically with cache busting
+      const cacheBuster = `?t=${Date.now()}`;
+      const appModule = await import(appPath + cacheBuster);
       const AppComponent = appModule.default;
 
       setProjectInfo({
@@ -101,12 +107,10 @@ const Canvas = (props: CanvasProps) => {
 
     try {
       fileWatcherRef.current = watch(srcPath, { recursive: true }, (_, filename) => {
-        if (filename && (filename.endsWith(".ts") || filename.endsWith(".js"))) {
+        if (filename && (filename.endsWith(".ts") || filename.endsWith(".tsx") || filename.endsWith(".js") || filename.endsWith(".jsx"))) {
           setStatusMessage(`🔄 File changed: ${filename} - Hot reloading...`);
-          // In a real implementation, you would reload the game code here
-          setTimeout(() => {
-            setStatusMessage("✅ Hot reload complete");
-          }, 1000);
+          // Actually reload the component
+          reloadProject();
         }
       });
     } catch (error) {
@@ -151,12 +155,14 @@ const Canvas = (props: CanvasProps) => {
   return (
     <group
       style={{
+        position:'relative',
         flexDirection: "column",
-        height: "100%",
-        width: "100%",
+        height: terminalHeight,
+        width:terminalWidth,
       }}
     >
-      {/* Header */}
+      
+              {/* Header */}
       <group
         style={{
           flexDirection: "column",
@@ -214,19 +220,19 @@ const Canvas = (props: CanvasProps) => {
         </group>
       )}
 
+
       {/* Main Game Canvas Area */}
       <group
         style={{
           flexDirection: "row",
           padding: 1,
-          height: 25,
         }}
       >
         {/* Live Project Component */}
         <box
           title="Live TUI Application"
           style={{
-            width: 45,
+            width: showStats ? 85 : terminalWidth - 2,
             borderColor: themeColors.hex.accent,
             padding: 1,
           }}
@@ -272,7 +278,7 @@ const Canvas = (props: CanvasProps) => {
           <box
             title="Canvas Stats"
             style={{
-              width: 25,
+              width: 22,
               marginLeft: 1,
               borderColor: themeColors.hex.muted,
             }}
@@ -333,7 +339,10 @@ const Canvas = (props: CanvasProps) => {
       {/* Footer Controls */}
       <group
         style={{
+          position:'absolute',
+          bottom:0,
           flexDirection: "column",
+          marginTop:1,
           padding: 1,
         }}
       >
